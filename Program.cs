@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace MyKioskApp
+namespace MyKioski
 {
     internal static class Program
     {
@@ -11,7 +11,6 @@ namespace MyKioskApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // This line makes sure your WelcomeForm starts first.
             Application.Run(new WelcomeForm());
         }
     }

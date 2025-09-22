@@ -1,12 +1,11 @@
-﻿// File: MenuForm.cs
-using MyKioskApp.Models;
+﻿using MyKioski.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace MyKioskApp
+namespace MyKioski
 {
     public partial class MenuForm : Form
     {
@@ -16,49 +15,102 @@ namespace MyKioskApp
 
         private void MenuForm_Load(object sender, EventArgs e)
         {
+            picLogo.Image = Image.FromFile("Assets/logo.png");
             LoadFullProductCatalog();
-            DisplayMenuItems(allMenuItems);
-            this.btnBBQ.Click += new System.EventHandler(this.CategoryButton_Click);
-            this.btnChicken.Click += new System.EventHandler(this.CategoryButton_Click);
-            this.btnPork.Click += new System.EventHandler(this.CategoryButton_Click);
-            this.btnDesserts.Click += new System.EventHandler(this.CategoryButton_Click);
+            DisplayMenuItems(allMenuItems); // Display all items in groups initially
+            UpdateOrderSummary();
+        }
+
+        private void UpdateOrderSummary()
+        {
+            lblItemCount.Text = $"Item Count: {Cart.GetItemCount()}";
+            lblTotal.Text = $"Total: ₱{Cart.GetTotal():F2}";
         }
 
         private void LoadFullProductCatalog()
         {
             allMenuItems = new List<MenuItem>
             {
-                new MenuItem { Id = 1, Name = "Special Beef Pares", Price = 120.00m, ImagePath = "pares.jpg", Category = "Pork" },
+                new MenuItem { Id = 1, Name = "Special Beef Pares", Price = 120.00m, ImagePath = "pares.jpg", Category = "Pares" },
                 new MenuItem { Id = 2, Name = "Pork BBQ (3 sticks)", Price = 90.00m, ImagePath = "pork_bbq.jpg", Category = "BBQ" },
                 new MenuItem { Id = 3, Name = "Lava Chicken", Price = 110.00m, ImagePath = "lava_chicken.jpg", Category = "Chicken" },
-                new MenuItem { Id = 4, Name = "Leche Flan", Price = 50.00m, ImagePath = "leche_flan.jpg", Category = "Desserts" },
+                new MenuItem { Id = 4, Name = "pusit", Price = 25.00m, ImagePath = "pusit.png", Category = "Sides" },
+                new MenuItem { Id = 5, Name = "Leche Flan", Price = 50.00m, ImagePath = "leche_flan.jpg", Category = "Desserts" },
+                new MenuItem { Id = 6, Name = "Coke", Price = 30.00m, ImagePath = "coke.png", Category = "Drinks" },
+                new MenuItem { Id = 7, Name = "Royal", Price = 30.00m, ImagePath = "royal.jpg", Category = "Drinks" },
+                new MenuItem { Id = 8, Name = "Sprite", Price = 50.00m, ImagePath = "sprite.jpeg", Category = "Drinks" },
             };
         }
 
+        // --- THIS IS THE NEW, UPGRADED DISPLAY METHOD ---
         private void DisplayMenuItems(List<MenuItem> itemsToShow)
         {
             flpMenu.Controls.Clear();
-            foreach (var item in itemsToShow)
+
+            // First, group the items by their category using LINQ.
+            // This creates groups like: "BBQ" -> {Pork BBQ, Extra Hot BBQ}, "Sides" -> {Garlic Rice, Chicken Skin}
+            var groupedItems = itemsToShow.GroupBy(item => item.Category).ToList();
+
+            // Now, loop through each GROUP (e.g., the "BBQ" group, then the "Sides" group)
+            foreach (var group in groupedItems)
             {
-                Panel card = new Panel { Width = 180, Height = 220, Margin = new Padding(10), BorderStyle = BorderStyle.FixedSingle, BackColor = Color.White };
-                PictureBox pic = new PictureBox { Image = Image.FromFile("Assets/" + item.ImagePath), SizeMode = PictureBoxSizeMode.StretchImage, Dock = DockStyle.Top, Height = 120 };
-                Label nameLabel = new Label { Text = item.Name, Dock = DockStyle.Top, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 10, FontStyle.Bold), Height = 40 };
-                Label priceLabel = new Label { Text = $"₱{item.Price:F2}", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 12, FontStyle.Bold), ForeColor = Color.DarkRed };
+                // 1. Create a big, bold label for the category name (e.g., "BBQ")
+                Label categoryLabel = new Label
+                {
+                    Text = group.Key.ToUpper(), // The category name, e.g., "BBQ"
+                    Font = new Font("Segoe UI", 18, FontStyle.Bold),
+                    ForeColor = Color.DarkSlateGray,
+                    BackColor = Color.LightGray,
+                    Width = flpMenu.ClientSize.Width - 40, // Make it almost as wide as the panel
+                    Height = 40,
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Margin = new Padding(10, 20, 10, 10) // Add some space around it
+                };
+                flpMenu.Controls.Add(categoryLabel);
 
-                card.Controls.Add(priceLabel);
-                card.Controls.Add(nameLabel);
-                card.Controls.Add(pic);
+                // 2. Now, loop through all the ITEMS within this one group
+                foreach (var item in group)
+                {
+                    // This is the same card-building code as before
+                    Panel card = new Panel { Width = 200, Height = 250, Margin = new Padding(15), BackColor = Color.White };
+                    PictureBox pic = new PictureBox { Image = Image.FromFile("Assets/" + item.ImagePath), SizeMode = PictureBoxSizeMode.Zoom, Dock = DockStyle.Top, Height = 140 };
+                    Label nameLabel = new Label { Text = item.Name, Dock = DockStyle.Top, TextAlign = ContentAlignment.MiddleCenter, Font = new Font("Segoe UI", 11, FontStyle.Bold), Height = 50 };
+                    Button addButton = new Button { Text = $"ADD - ₱{item.Price:F2}", Dock = DockStyle.Bottom, Height = 60, BackColor = Color.DarkOrange, ForeColor = Color.White, Font = new Font("Segoe UI", 12, FontStyle.Bold), Tag = item };
 
-                flpMenu.Controls.Add(card);
+                    addButton.Click += AddButton_Click;
+                    card.Controls.Add(nameLabel);
+                    card.Controls.Add(pic);
+                    card.Controls.Add(addButton);
+
+                    flpMenu.Controls.Add(card);
+                }
             }
+        }
+
+        private void AddButton_Click(object sender, EventArgs e)
+        {
+            Button clickedButton = sender as Button;
+            MenuItem itemToAdd = clickedButton.Tag as MenuItem;
+            Cart.AddItem(itemToAdd);
+            UpdateOrderSummary();
         }
 
         private void CategoryButton_Click(object sender, EventArgs e)
         {
             Button clickedButton = sender as Button;
-            string category = clickedButton.Text;
-            var filteredItems = allMenuItems.Where(item => item.Category == category).ToList();
-            DisplayMenuItems(filteredItems);
+            if (clickedButton.Text == "All")
+            {
+                DisplayMenuItems(allMenuItems); // The "All" button shows the new grouped view
+            }
+            else
+            {
+                // The other category buttons will filter to show only that group
+                string category = clickedButton.Text;
+                var filteredItems = allMenuItems.Where(item => item.Category == category).ToList();
+                DisplayMenuItems(filteredItems);
+            }
         }
     }
+
+
 }

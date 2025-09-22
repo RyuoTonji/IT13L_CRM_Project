@@ -1,5 +1,5 @@
 ﻿// File: Models/MenuItem.cs
-namespace MyKioskApp.Models
+namespace MyKioski.Models
 {
     public class MenuItem
     {
