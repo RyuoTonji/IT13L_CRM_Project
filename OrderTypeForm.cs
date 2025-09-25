@@ -15,7 +15,6 @@ namespace MyKioski
             // Connect all three buttons to the same click event handler
             btnDineIn.Click += new EventHandler(OrderTypeButton_Click);
             btnTakeOut.Click += new EventHandler(OrderTypeButton_Click);
-            btnDelivery.Click += new EventHandler(OrderTypeButton_Click);
         }
 
         // This single method runs when ANY of the three buttons are clicked

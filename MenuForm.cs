@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Data.SqlClient;
 
 namespace MyKioski
 {
@@ -11,7 +12,12 @@ namespace MyKioski
     {
         private List<MenuItem> allMenuItems;
 
-        public MenuForm() { InitializeComponent(); }
+        public MenuForm()
+        {
+
+            InitializeComponent();
+        }
+
 
         private void MenuForm_Load(object sender, EventArgs e)
         {
@@ -19,6 +25,8 @@ namespace MyKioski
             LoadFullProductCatalog();
             DisplayMenuItems(allMenuItems); // Display all items in groups initially
             UpdateOrderSummary();
+
+            btnMyCart.Click += btnMyCart_Click;
         }
 
         private void UpdateOrderSummary()
@@ -109,6 +117,13 @@ namespace MyKioski
                 var filteredItems = allMenuItems.Where(item => item.Category == category).ToList();
                 DisplayMenuItems(filteredItems);
             }
+        }
+
+        private void btnMyCart_Click(object sender, EventArgs e)
+        {
+            CartForm cartForm = new CartForm();
+            cartForm.ShowDialog(); // Or Show() if you want non-modal
+            UpdateOrderSummary(); // Refresh the summary when cart form closes
         }
     }
 
