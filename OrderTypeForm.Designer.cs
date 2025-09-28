@@ -17,95 +17,83 @@
 
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnDelivery = new System.Windows.Forms.Button();
-            this.btnTakeOut = new System.Windows.Forms.Button();
-            this.btnDineIn = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.SuspendLayout();
+            lblTitle = new Label();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            btnTakeOut = new Button();
+            btnDineIn = new Button();
+            tableLayoutPanel1.SuspendLayout();
+            SuspendLayout();
             // 
             // lblTitle
             // 
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Padding = new System.Windows.Forms.Padding(0, 50, 0, 0);
-            this.lblTitle.Size = new System.Drawing.Size(1264, 150);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "How would you like to enjoy your meal?";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblTitle.Dock = DockStyle.Top;
+            lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(0, 0);
+            lblTitle.Margin = new Padding(4, 0, 4, 0);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Padding = new Padding(0, 58, 0, 0);
+            lblTitle.Size = new Size(1475, 173);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "How would you like to enjoy your meal?";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.btnDelivery, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnTakeOut, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnDineIn, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 150);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(50, 0, 50, 100);
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1264, 579);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
-            // btnDelivery
-            // 
-            this.btnDelivery.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDelivery.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelivery.Location = new System.Drawing.Point(830, 20);
-            this.btnDelivery.Margin = new System.Windows.Forms.Padding(20);
-            this.btnDelivery.Name = "btnDelivery";
-            this.btnDelivery.Size = new System.Drawing.Size(364, 439);
-            this.btnDelivery.TabIndex = 2;
-            this.btnDelivery.Text = "Delivery";
-            this.btnDelivery.UseVisualStyleBackColor = true;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel1.Controls.Add(btnTakeOut, 1, 0);
+            tableLayoutPanel1.Controls.Add(btnDineIn, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 173);
+            tableLayoutPanel1.Margin = new Padding(4, 3, 4, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.Padding = new Padding(58, 0, 58, 115);
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1475, 668);
+            tableLayoutPanel1.TabIndex = 1;
             // 
             // btnTakeOut
             // 
-            this.btnTakeOut.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnTakeOut.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTakeOut.Location = new System.Drawing.Point(445, 20);
-            this.btnTakeOut.Margin = new System.Windows.Forms.Padding(20);
-            this.btnTakeOut.Name = "btnTakeOut";
-            this.btnTakeOut.Size = new System.Drawing.Size(365, 439);
-            this.btnTakeOut.TabIndex = 1;
-            this.btnTakeOut.Text = "Take Out";
-            this.btnTakeOut.UseVisualStyleBackColor = true;
+            btnTakeOut.Dock = DockStyle.Fill;
+            btnTakeOut.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTakeOut.Location = new Point(760, 23);
+            btnTakeOut.Margin = new Padding(23, 23, 23, 23);
+            btnTakeOut.Name = "btnTakeOut";
+            btnTakeOut.Size = new Size(634, 507);
+            btnTakeOut.TabIndex = 1;
+            btnTakeOut.Text = "Take Out";
+            btnTakeOut.UseVisualStyleBackColor = true;
             // 
             // btnDineIn
             // 
-            this.btnDineIn.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnDineIn.Font = new System.Drawing.Font("Segoe UI", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDineIn.Location = new System.Drawing.Point(70, 20);
-            this.btnDineIn.Margin = new System.Windows.Forms.Padding(20);
-            this.btnDineIn.Name = "btnDineIn";
-            this.btnDineIn.Size = new System.Drawing.Size(355, 439);
-            this.btnDineIn.TabIndex = 0;
-            this.btnDineIn.Text = "Dine In";
-            this.btnDineIn.UseVisualStyleBackColor = true;
+            btnDineIn.Dock = DockStyle.Fill;
+            btnDineIn.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDineIn.Location = new Point(81, 23);
+            btnDineIn.Margin = new Padding(23, 23, 23, 23);
+            btnDineIn.Name = "btnDineIn";
+            btnDineIn.Size = new Size(633, 507);
+            btnDineIn.TabIndex = 0;
+            btnDineIn.Text = "Dine In";
+            btnDineIn.UseVisualStyleBackColor = true;
             // 
             // OrderTypeForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(1264, 729);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.lblTitle);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "OrderTypeForm";
-            this.Text = "OrderTypeForm";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.OrderTypeForm_Load);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.WhiteSmoke;
+            ClientSize = new Size(1475, 841);
+            Controls.Add(tableLayoutPanel1);
+            Controls.Add(lblTitle);
+            FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "OrderTypeForm";
+            Text = "OrderTypeForm";
+            WindowState = FormWindowState.Maximized;
+            Load += OrderTypeForm_Load;
+            tableLayoutPanel1.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
@@ -113,7 +101,6 @@
 
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btnDelivery;
         private System.Windows.Forms.Button btnTakeOut;
         private System.Windows.Forms.Button btnDineIn;
     }
