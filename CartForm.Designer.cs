@@ -17,134 +17,142 @@
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.panelBottom = new System.Windows.Forms.Panel();
-            this.btnCheckout = new System.Windows.Forms.Button();
-            this.btnBack = new System.Windows.Forms.Button();
-            this.lblFinalTotal = new System.Windows.Forms.Label();
-            this.dgvCart = new System.Windows.Forms.DataGridView();
-            this.panelTop.SuspendLayout();
-            this.panelBottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).BeginInit();
-            this.SuspendLayout();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            panelTop = new Panel();
+            lblTitle = new Label();
+            panelBottom = new Panel();
+            btnCheckout = new Button();
+            btnBack = new Button();
+            lblFinalTotal = new Label();
+            dgvCart = new DataGridView();
+            panelTop.SuspendLayout();
+            panelBottom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCart).BeginInit();
+            SuspendLayout();
             // 
             // panelTop
             // 
-            this.panelTop.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panelTop.Controls.Add(this.lblTitle);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(784, 60);
-            this.panelTop.TabIndex = 0;
+            panelTop.BackColor = Color.WhiteSmoke;
+            panelTop.Controls.Add(lblTitle);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(0, 0);
+            panelTop.Margin = new Padding(4, 3, 4, 3);
+            panelTop.Name = "panelTop";
+            panelTop.Size = new Size(915, 69);
+            panelTop.TabIndex = 0;
             // 
             // lblTitle
             // 
-            this.lblTitle.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle.Location = new System.Drawing.Point(0, 0);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(784, 60);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "Review Your Order";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblTitle.Dock = DockStyle.Fill;
+            lblTitle.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(0, 0);
+            lblTitle.Margin = new Padding(4, 0, 4, 0);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(915, 69);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Review Your Order";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelBottom
             // 
-            this.panelBottom.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.panelBottom.Controls.Add(this.btnCheckout);
-            this.panelBottom.Controls.Add(this.btnBack);
-            this.panelBottom.Controls.Add(this.lblFinalTotal);
-            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 481);
-            this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(784, 80);
-            this.panelBottom.TabIndex = 1;
+            panelBottom.BackColor = Color.WhiteSmoke;
+            panelBottom.Controls.Add(btnCheckout);
+            panelBottom.Controls.Add(btnBack);
+            panelBottom.Controls.Add(lblFinalTotal);
+            panelBottom.Dock = DockStyle.Bottom;
+            panelBottom.Location = new Point(0, 555);
+            panelBottom.Margin = new Padding(4, 3, 4, 3);
+            panelBottom.Name = "panelBottom";
+            panelBottom.Size = new Size(915, 92);
+            panelBottom.TabIndex = 1;
             // 
             // btnCheckout
             // 
-            this.btnCheckout.BackColor = System.Drawing.Color.ForestGreen;
-            this.btnCheckout.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnCheckout.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCheckout.ForeColor = System.Drawing.Color.White;
-            this.btnCheckout.Location = new System.Drawing.Point(464, 0);
-            this.btnCheckout.Name = "btnCheckout";
-            this.btnCheckout.Size = new System.Drawing.Size(160, 80);
-            this.btnCheckout.TabIndex = 2;
-            this.btnCheckout.Text = "Proceed to Payment";
-            this.btnCheckout.UseVisualStyleBackColor = false;
-            this.btnCheckout.Click += new System.EventHandler(this.btnCheckout_Click);
+            btnCheckout.BackColor = Color.ForestGreen;
+            btnCheckout.Dock = DockStyle.Right;
+            btnCheckout.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCheckout.ForeColor = Color.White;
+            btnCheckout.Location = new Point(541, 0);
+            btnCheckout.Margin = new Padding(4, 3, 4, 3);
+            btnCheckout.Name = "btnCheckout";
+            btnCheckout.Size = new Size(187, 92);
+            btnCheckout.TabIndex = 2;
+            btnCheckout.Text = "Proceed to Payment";
+            btnCheckout.UseVisualStyleBackColor = false;
+            btnCheckout.Click += btnCheckout_Click;
             // 
             // btnBack
             // 
-            this.btnBack.BackColor = System.Drawing.Color.DarkGray;
-            this.btnBack.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnBack.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBack.ForeColor = System.Drawing.Color.White;
-            this.btnBack.Location = new System.Drawing.Point(624, 0);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(160, 80);
-            this.btnBack.TabIndex = 1;
-            this.btnBack.Text = "Back to Menu";
-            this.btnBack.UseVisualStyleBackColor = false;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            btnBack.BackColor = Color.DarkGray;
+            btnBack.Dock = DockStyle.Right;
+            btnBack.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnBack.ForeColor = Color.White;
+            btnBack.Location = new Point(728, 0);
+            btnBack.Margin = new Padding(4, 3, 4, 3);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(187, 92);
+            btnBack.TabIndex = 1;
+            btnBack.Text = "Back to Menu";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
             // 
             // lblFinalTotal
             // 
-            this.lblFinalTotal.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblFinalTotal.Font = new System.Drawing.Font("Segoe UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFinalTotal.Location = new System.Drawing.Point(0, 0);
-            this.lblFinalTotal.Name = "lblFinalTotal";
-            this.lblFinalTotal.Padding = new System.Windows.Forms.Padding(20, 0, 0, 0);
-            this.lblFinalTotal.Size = new System.Drawing.Size(458, 80);
-            this.lblFinalTotal.TabIndex = 0;
-            this.lblFinalTotal.Text = "Final Total: ₱0.00";
-            this.lblFinalTotal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblFinalTotal.Dock = DockStyle.Left;
+            lblFinalTotal.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFinalTotal.Location = new Point(0, 0);
+            lblFinalTotal.Margin = new Padding(4, 0, 4, 0);
+            lblFinalTotal.Name = "lblFinalTotal";
+            lblFinalTotal.Padding = new Padding(23, 0, 0, 0);
+            lblFinalTotal.Size = new Size(534, 92);
+            lblFinalTotal.TabIndex = 0;
+            lblFinalTotal.Text = "Final Total: ₱0.00";
+            lblFinalTotal.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // dgvCart
             // 
-            this.dgvCart.AllowUserToAddRows = false;
-            this.dgvCart.AllowUserToDeleteRows = false;
-            this.dgvCart.BackgroundColor = System.Drawing.Color.White;
-            this.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvCart.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvCart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCart.Location = new System.Drawing.Point(0, 60);
-            this.dgvCart.Name = "dgvCart";
-            this.dgvCart.ReadOnly = true;
-            this.dgvCart.RowHeadersVisible = false;
-            this.dgvCart.RowTemplate.Height = 40;
-            this.dgvCart.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCart.Size = new System.Drawing.Size(784, 421);
-            this.dgvCart.TabIndex = 2;
-            this.dgvCart.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCart_CellContentClick);
+            dgvCart.AllowUserToAddRows = false;
+            dgvCart.AllowUserToDeleteRows = false;
+            dgvCart.BackgroundColor = Color.White;
+            dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dgvCart.DefaultCellStyle = dataGridViewCellStyle1;
+            dgvCart.Dock = DockStyle.Fill;
+            dgvCart.Location = new Point(0, 69);
+            dgvCart.Margin = new Padding(4, 3, 4, 3);
+            dgvCart.Name = "dgvCart";
+            dgvCart.ReadOnly = true;
+            dgvCart.RowHeadersVisible = false;
+            dgvCart.RowTemplate.Height = 40;
+            dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCart.Size = new Size(915, 486);
+            dgvCart.TabIndex = 2;
+            dgvCart.CellContentClick += dgvCart_CellContentClick;
             // 
             // CartForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.dgvCart);
-            this.Controls.Add(this.panelBottom);
-            this.Controls.Add(this.panelTop);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "CartForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "My Order Summary";
-            this.Load += new System.EventHandler(this.CartForm_Load);
-            this.panelTop.ResumeLayout(false);
-            this.panelBottom.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCart)).EndInit();
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(915, 647);
+            Controls.Add(dgvCart);
+            Controls.Add(panelBottom);
+            Controls.Add(panelTop);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "CartForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "My Order Summary";
+            Load += CartForm_Load;
+            panelTop.ResumeLayout(false);
+            panelBottom.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvCart).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

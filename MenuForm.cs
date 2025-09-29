@@ -89,10 +89,30 @@ namespace MyKioski
 
         private void AddButton_Click(object sender, EventArgs e)
         {
+            // Get the MenuItem from the button that was clicked
             Button clickedButton = sender as Button;
             MenuItem itemToAdd = clickedButton.Tag as MenuItem;
-            Cart.AddItem(itemToAdd);
-            UpdateOrderSummary();
+
+            // Create our new pop-up form, passing the selected item to it
+            using (QuantityForm quantityDialog = new QuantityForm(itemToAdd))
+            {
+                // Show the pop-up and wait for the user to close it
+                // The code will pause here until the user clicks "Add to Cart" or closes the window
+                DialogResult result = quantityDialog.ShowDialog();
+
+                // Check if the user clicked the "Add to Cart" button
+                if (result == DialogResult.OK)
+                {
+                    // Get the quantity the user selected from the public property
+                    int quantity = quantityDialog.SelectedQuantity;
+
+                    // Use our new, powerful cart method to add the item with its quantity
+                    Cart.AddItemWithQuantity(itemToAdd, quantity);
+
+                    // Update the summary display on the main menu
+                    UpdateOrderSummary();
+                }
+            }
         }
 
         private void CategoryButton_Click(object sender, EventArgs e)

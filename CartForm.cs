@@ -17,22 +17,26 @@ namespace MyKioski
             BindDataToGrid();
         }
 
+        // This method displays your items, prices, quantities, and subtotals
         private void BindDataToGrid()
         {
             dgvCart.Rows.Clear();
             dgvCart.Columns.Clear();
 
+            // Set up the columns
             dgvCart.Columns.Add("ItemName", "Item");
             dgvCart.Columns.Add("Price", "Price");
             dgvCart.Columns.Add("Quantity", "Qty");
             dgvCart.Columns.Add("Subtotal", "Subtotal");
 
-            DataGridViewButtonColumn btnIncrease = new DataGridViewButtonColumn { Name = "Increase", Text = "+", UseColumnTextForButtonValue = true, Width = 40 };
+
             DataGridViewButtonColumn btnDecrease = new DataGridViewButtonColumn { Name = "Decrease", Text = "-", UseColumnTextForButtonValue = true, Width = 40 };
+            DataGridViewButtonColumn btnIncrease = new DataGridViewButtonColumn { Name = "Increase", Text = "+", UseColumnTextForButtonValue = true, Width = 40 };
+
 
             dgvCart.Columns.Add(btnDecrease);
             dgvCart.Columns.Add(btnIncrease);
-
+            // Fill the grid with items from the Cart
             foreach (var cartItem in Cart.items)
             {
                 dgvCart.Rows.Add(
@@ -44,30 +48,35 @@ namespace MyKioski
                 dgvCart.Rows[dgvCart.Rows.Count - 1].Tag = cartItem.Item.Id;
             }
 
+            // Style and formatting
             dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCart.Columns["Quantity"].Width = 60;
             dgvCart.DefaultCellStyle.Font = new Font("Segoe UI", 14);
             dgvCart.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold);
 
+            // Update the final total price at the bottom
             lblFinalTotal.Text = $"Final Total: ₱{Cart.GetTotal():F2}";
         }
 
-        // This method will now be correctly connected and will run on clicks.
+        // This method handles all clicks inside the grid
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            if (e.RowIndex < 0) return; // Ignore clicks on the header
+
             int itemId = (int)dgvCart.Rows[e.RowIndex].Tag;
 
-            if (dgvCart.Columns[e.ColumnIndex].Name == "Increase")
-            {
-                Cart.IncreaseQuantity(itemId);
-            }
-            else if (dgvCart.Columns[e.ColumnIndex].Name == "Decrease")
+            // This handles the "quantity decrease" when you click '-'
+            if (dgvCart.Columns[e.ColumnIndex].Name == "Decrease")
             {
                 Cart.DecreaseQuantity(itemId);
             }
+            // This handles the "subtotal increase" (by increasing quantity) when you click '+'
+            else if (dgvCart.Columns[e.ColumnIndex].Name == "Increase")
+            {
+                Cart.IncreaseQuantity(itemId);
+            }
 
-            // This is the important line that refreshes the display after a change.
+            // After any change, refresh the entire grid to show the new values
             BindDataToGrid();
         }
 
@@ -80,9 +89,16 @@ namespace MyKioski
         {
             if (Cart.GetItemCount() > 0)
             {
-                MessageBox.Show($"Thank you for your order! Your total is ₱{Cart.GetTotal():F2}. Please pay at the counter.", "Payment Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Cart.ClearCart();
-                this.Close();
+                // Open the PaymentForm as a dialog window
+                PaymentForm paymentForm = new PaymentForm();
+                DialogResult result = paymentForm.ShowDialog();
+
+                // After the payment form closes, if the payment was successful (OK),
+                // then close the cart form as well.
+                if (result == DialogResult.OK)
+                {
+                    this.Close();
+                }
             }
             else
             {
