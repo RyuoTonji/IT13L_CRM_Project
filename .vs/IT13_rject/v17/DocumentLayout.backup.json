@@ -1,0 +1,104 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\IT13_rject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|c:\\users\\user\\source\\repos\\it13_rject\\it13_rject\\notificationofsentfeedback.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\notificationofsentfeedback.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|C:\\Users\\User\\source\\repos\\IT13_rject\\it13_rject\\notificationofsentfeedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\notificationofsentfeedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|c:\\users\\user\\source\\repos\\it13_rject\\it13_rject\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|C:\\Users\\User\\source\\repos\\IT13_rject\\it13_rject\\draftconfirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\draftconfirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|C:\\Users\\User\\source\\repos\\IT13_rject\\it13_rject\\confirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\confirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "notificationOfSentFeedback.resx",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\notificationOfSentFeedback.resx",
+              "RelativeDocumentMoniker": "IT13_rject\\notificationOfSentFeedback.resx",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\notificationOfSentFeedback.resx",
+              "RelativeToolTip": "IT13_rject\\notificationOfSentFeedback.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2025-09-29T10:27:29.247Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "notificationOfSentFeedback.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\notificationOfSentFeedback.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\notificationOfSentFeedback.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\notificationOfSentFeedback.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\notificationOfSentFeedback.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T11:28:44.938Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Confirmation.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\Confirmation.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\Confirmation.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\Confirmation.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\Confirmation.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T11:24:49.703Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "draftConfirmation.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\draftConfirmation.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\draftConfirmation.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\draftConfirmation.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\draftConfirmation.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T11:24:14.327Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\Form1.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\Form1.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\Form1.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-18T11:07:37.985Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
