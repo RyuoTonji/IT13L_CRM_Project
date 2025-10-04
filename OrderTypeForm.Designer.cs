@@ -26,8 +26,9 @@
             // 
             // lblTitle
             // 
+            lblTitle.BackColor = Color.DarkRed;
             lblTitle.Dock = DockStyle.Top;
-            lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitle.Location = new Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
@@ -39,6 +40,7 @@
             // 
             // tableLayoutPanel1
             // 
+            tableLayoutPanel1.BackColor = Color.DarkRed;
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
@@ -56,10 +58,12 @@
             // 
             // btnTakeOut
             // 
+            btnTakeOut.BackgroundImage = MyKioskApp.Properties.Resources.take_out;
+            btnTakeOut.BackgroundImageLayout = ImageLayout.Stretch;
             btnTakeOut.Dock = DockStyle.Fill;
-            btnTakeOut.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnTakeOut.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnTakeOut.Location = new Point(760, 23);
-            btnTakeOut.Margin = new Padding(23, 23, 23, 23);
+            btnTakeOut.Margin = new Padding(23);
             btnTakeOut.Name = "btnTakeOut";
             btnTakeOut.Size = new Size(634, 507);
             btnTakeOut.TabIndex = 1;
@@ -68,10 +72,12 @@
             // 
             // btnDineIn
             // 
+            btnDineIn.BackgroundImage = MyKioskApp.Properties.Resources.dineIn;
+            btnDineIn.BackgroundImageLayout = ImageLayout.Stretch;
             btnDineIn.Dock = DockStyle.Fill;
-            btnDineIn.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDineIn.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             btnDineIn.Location = new Point(81, 23);
-            btnDineIn.Margin = new Padding(23, 23, 23, 23);
+            btnDineIn.Margin = new Padding(23);
             btnDineIn.Name = "btnDineIn";
             btnDineIn.Size = new Size(633, 507);
             btnDineIn.TabIndex = 0;
@@ -94,14 +100,13 @@
             Load += OrderTypeForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
-
         }
 
         #endregion
 
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Button btnTakeOut;
-        private System.Windows.Forms.Button btnDineIn;
+        private Label lblTitle;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Button btnTakeOut;
+        private Button btnDineIn;
     }
 }

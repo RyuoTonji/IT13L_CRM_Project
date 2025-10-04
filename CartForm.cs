@@ -87,26 +87,24 @@ namespace MyKioski
 
         private void btnCheckout_Click(object sender, EventArgs e)
         {
-            PaymentForm paymentForm = new PaymentForm();
-            DialogResult result = paymentForm.ShowDialog();
 
-            //if (Cart.GetItemCount() > 0)
-            //{
-                // Open the PaymentForm as a dialog window
-              //  PaymentForm paymentForm = new PaymentForm();
-                //DialogResult result = paymentForm.ShowDialog();
+            if (Cart.GetItemCount() > 0)
+            {
+                //Open the PaymentForm as a dialog window
+                PaymentForm paymentForm = new PaymentForm();
+                DialogResult result = paymentForm.ShowDialog();
 
-                // After the payment form closes, if the payment was successful (OK),
-                // then close the cart form as well.
-                //if (result == DialogResult.OK)
-                //{
-                  //  this.Close();
-                //}
-            //}
-            //else
-            //{
-              //  MessageBox.Show("Your cart is empty.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
+                //After the payment form closes, if the payment was successful(OK),
+                 //then close the cart form as well.
+                if (result == DialogResult.OK)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Your cart is empty.", "Empty Cart", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }
