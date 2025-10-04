@@ -130,6 +130,13 @@ namespace MyKioski
                 DisplayMenuItems(filteredItems);
             }
         }
+
+        private void btnMyCart_Click(object sender, EventArgs e)
+        {
+            CartForm cartForm = new CartForm();
+            cartForm.ShowDialog(); // Or Show() if you want non-modal
+            UpdateOrderSummary(); // Refresh the summary when cart form closes
+        }
     }
 
 
