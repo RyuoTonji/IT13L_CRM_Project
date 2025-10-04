@@ -22,9 +22,9 @@ namespace MyKioski
             lblTotal = new Label();
             lblItemCount = new Label();
             panelHeader = new Panel();
+            btnMyCart = new Button();
             lblTitle = new Label();
             picLogo = new PictureBox();
-            btnMyCart = new Button();
             tableLayoutPanel1.SuspendLayout();
             panelCategories.SuspendLayout();
             panelOrderSummary.SuspendLayout();
@@ -72,7 +72,7 @@ namespace MyKioski
             // btnDesserts
             // 
             btnDesserts.Dock = DockStyle.Top;
-            btnDesserts.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            btnDesserts.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnDesserts.Location = new Point(0, 414);
             btnDesserts.Margin = new Padding(4, 3, 4, 3);
             btnDesserts.Name = "btnDesserts";
@@ -85,7 +85,7 @@ namespace MyKioski
             // btnDrinks
             // 
             btnDrinks.Dock = DockStyle.Top;
-            btnDrinks.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            btnDrinks.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnDrinks.Location = new Point(0, 345);
             btnDrinks.Margin = new Padding(4, 3, 4, 3);
             btnDrinks.Name = "btnDrinks";
@@ -98,7 +98,7 @@ namespace MyKioski
             // btnSides
             // 
             btnSides.Dock = DockStyle.Top;
-            btnSides.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            btnSides.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnSides.Location = new Point(0, 276);
             btnSides.Margin = new Padding(4, 3, 4, 3);
             btnSides.Name = "btnSides";
@@ -111,7 +111,7 @@ namespace MyKioski
             // btnPares
             // 
             btnPares.Dock = DockStyle.Top;
-            btnPares.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            btnPares.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnPares.Location = new Point(0, 207);
             btnPares.Margin = new Padding(4, 3, 4, 3);
             btnPares.Name = "btnPares";
@@ -124,7 +124,7 @@ namespace MyKioski
             // btnChicken
             // 
             btnChicken.Dock = DockStyle.Top;
-            btnChicken.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            btnChicken.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnChicken.Location = new Point(0, 138);
             btnChicken.Margin = new Padding(4, 3, 4, 3);
             btnChicken.Name = "btnChicken";
@@ -137,7 +137,7 @@ namespace MyKioski
             // btnBBQ
             // 
             btnBBQ.Dock = DockStyle.Top;
-            btnBBQ.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            btnBBQ.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnBBQ.Location = new Point(0, 69);
             btnBBQ.Margin = new Padding(4, 3, 4, 3);
             btnBBQ.Name = "btnBBQ";
@@ -150,7 +150,7 @@ namespace MyKioski
             // btnAll
             // 
             btnAll.Dock = DockStyle.Top;
-            btnAll.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            btnAll.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             btnAll.Location = new Point(0, 0);
             btnAll.Margin = new Padding(4, 3, 4, 3);
             btnAll.Name = "btnAll";
@@ -189,7 +189,7 @@ namespace MyKioski
             // 
             lblTotal.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold);
+            lblTotal.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblTotal.Location = new Point(1278, 27);
             lblTotal.Margin = new Padding(4, 0, 4, 0);
             lblTotal.Name = "lblTotal";
@@ -200,7 +200,7 @@ namespace MyKioski
             // lblItemCount
             // 
             lblItemCount.AutoSize = true;
-            lblItemCount.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold);
+            lblItemCount.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
             lblItemCount.Location = new Point(27, 27);
             lblItemCount.Margin = new Padding(4, 0, 4, 0);
             lblItemCount.Name = "lblItemCount";
@@ -222,11 +222,25 @@ namespace MyKioski
             panelHeader.Size = new Size(1467, 109);
             panelHeader.TabIndex = 3;
             // 
+            // btnMyCart
+            // 
+            btnMyCart.BackColor = Color.ForestGreen;
+            btnMyCart.Dock = DockStyle.Right;
+            btnMyCart.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnMyCart.ForeColor = Color.White;
+            btnMyCart.Location = new Point(1287, 0);
+            btnMyCart.Name = "btnMyCart";
+            btnMyCart.Size = new Size(180, 109);
+            btnMyCart.TabIndex = 2;
+            btnMyCart.Text = "\U0001f6d2 My Cart (0)";
+            btnMyCart.UseVisualStyleBackColor = false;
+            btnMyCart.Click += btnMyCart_Click;
+            // 
             // lblTitle
             // 
             lblTitle.BackColor = Color.RosyBrown;
             lblTitle.Dock = DockStyle.Fill;
-            lblTitle.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold);
+            lblTitle.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             lblTitle.ForeColor = Color.White;
             lblTitle.Location = new Point(250, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
@@ -249,19 +263,6 @@ namespace MyKioski
             picLogo.TabIndex = 0;
             picLogo.TabStop = false;
             // 
-            // btnMyCart
-            // 
-            btnMyCart.BackColor = Color.ForestGreen;
-            btnMyCart.Dock = DockStyle.Right;
-            btnMyCart.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnMyCart.ForeColor = Color.White;
-            btnMyCart.Location = new Point(1287, 0);
-            btnMyCart.Name = "btnMyCart";
-            btnMyCart.Size = new Size(180, 109);
-            btnMyCart.TabIndex = 2;
-            btnMyCart.Text = "\U0001f6d2 My Cart (0)";
-            btnMyCart.UseVisualStyleBackColor = false;
-            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -283,22 +284,22 @@ namespace MyKioski
             ResumeLayout(false);
         }
         #endregion
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panelCategories;
-        private System.Windows.Forms.FlowLayoutPanel flpMenu;
-        private System.Windows.Forms.Panel panelOrderSummary;
-        private System.Windows.Forms.Label lblTotal;
-        private System.Windows.Forms.Label lblItemCount;
-        private System.Windows.Forms.Panel panelHeader;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.PictureBox picLogo;
-        private System.Windows.Forms.Button btnAll;
-        private System.Windows.Forms.Button btnBBQ;
-        private System.Windows.Forms.Button btnChicken;
-        private System.Windows.Forms.Button btnPares;
-        private System.Windows.Forms.Button btnSides;
-        private System.Windows.Forms.Button btnDrinks;
-        private System.Windows.Forms.Button btnDesserts;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel panelCategories;
+        private FlowLayoutPanel flpMenu;
+        private Panel panelOrderSummary;
+        private Label lblTotal;
+        private Label lblItemCount;
+        private Panel panelHeader;
+        private Label lblTitle;
+        private PictureBox picLogo;
+        private Button btnAll;
+        private Button btnBBQ;
+        private Button btnChicken;
+        private Button btnPares;
+        private Button btnSides;
+        private Button btnDrinks;
+        private Button btnDesserts;
         private Button btnMyCart;
     }
 }
