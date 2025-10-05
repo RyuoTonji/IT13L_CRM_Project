@@ -19,6 +19,8 @@ namespace MyKioski
             LoadFullProductCatalog();
             DisplayMenuItems(allMenuItems); // Display all items in groups initially
             UpdateOrderSummary();
+            UpdateCartButton();
+            Cart.CartUpdated += OnCartUpdated;
         }
 
         private void UpdateOrderSummary()
@@ -111,6 +113,7 @@ namespace MyKioski
 
                     // Update the summary display on the main menu
                     UpdateOrderSummary();
+                    UpdateCartButton();
                 }
             }
         }
@@ -137,7 +140,28 @@ namespace MyKioski
             cartForm.ShowDialog(); // Or Show() if you want non-modal
             UpdateOrderSummary(); // Refresh the summary when cart form closes
         }
+
+        private void UpdateCartButton()
+        {
+            // Calculate total items in the cart
+            int totalItems = Cart.items.Count;
+
+            // Update the button text
+            btnMyCart.Text = $"🛒 My Cart ({totalItems})";
+        }
+
+        private void OnCartUpdated()
+        {
+            // This ensures the UI updates safely even if the event fires from another thread
+            if (InvokeRequired)
+            {
+                Invoke(new Action(OnCartUpdated));
+                return;
+            }
+
+            UpdateOrderSummary();
+            UpdateCartButton();
+        }
+
     }
-
-
 }
