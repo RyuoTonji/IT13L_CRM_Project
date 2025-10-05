@@ -2,6 +2,7 @@
 {
     partial class OrderTypeForm
     {
+
         private System.ComponentModel.IContainer components = null;
 
         protected override void Dispose(bool disposing)
@@ -58,7 +59,7 @@
             // 
             // btnTakeOut
             // 
-            btnTakeOut.BackgroundImage = MyKioskApp.Properties.Resources.take_out;
+
             btnTakeOut.BackgroundImageLayout = ImageLayout.Stretch;
             btnTakeOut.Dock = DockStyle.Fill;
             btnTakeOut.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -72,7 +73,6 @@
             // 
             // btnDineIn
             // 
-            btnDineIn.BackgroundImage = MyKioskApp.Properties.Resources.dineIn;
             btnDineIn.BackgroundImageLayout = ImageLayout.Stretch;
             btnDineIn.Dock = DockStyle.Fill;
             btnDineIn.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);

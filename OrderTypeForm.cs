@@ -1,5 +1,10 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Text;
 using System.Windows.Forms;
+using MyKioskApp.Properties;
 
 namespace MyKioski
 {
@@ -8,24 +13,38 @@ namespace MyKioski
         public OrderTypeForm()
         {
             InitializeComponent();
+
+            // Load button images at runtime from Assets folder
+            try
+            {
+
+                btnTakeOut.BackgroundImage = Resources.take_out;
+                btnTakeOut.BackgroundImageLayout = ImageLayout.Stretch;
+
+                btnDineIn.BackgroundImage = Resources.dineIn;
+                btnDineIn.BackgroundImageLayout = ImageLayout.Stretch;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading images: " + ex.Message);
+            }
         }
 
         private void OrderTypeForm_Load(object sender, EventArgs e)
         {
-            // Connect all three buttons to the same click event handler
+            // Connect both buttons to the same click event handler
             btnDineIn.Click += new EventHandler(OrderTypeButton_Click);
             btnTakeOut.Click += new EventHandler(OrderTypeButton_Click);
         }
 
-        // This single method runs when ANY of the three buttons are clicked
         private void OrderTypeButton_Click(object sender, EventArgs e)
         {
-            // Optional: You can find out which button was clicked if you need to save the order type
+            // Optional: detect which button was clicked
             // Button clickedButton = sender as Button;
-            // string orderType = clickedButton.Text; 
+            // string orderType = clickedButton.Text;
             // MessageBox.Show("You selected: " + orderType);
 
-            // Create and show the MenuForm
+            // Show the MenuForm
             MenuForm menuForm = new MenuForm();
             menuForm.Show();
 
