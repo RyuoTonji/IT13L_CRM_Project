@@ -172,6 +172,13 @@ namespace MyKioski
                 var filteredItems = allMenuItems.Where(item => item.Category == category).ToList();
                 DisplayMenuItems(filteredItems);
             }
+
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            DashboardForm dashboard = new DashboardForm();
+            dashboard.Show();
         }
 
         private void btnMyCart_Click(object sender, EventArgs e)
