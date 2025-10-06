@@ -9,15 +9,90 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\1790523662.jpg" />
+    <None Remove="Assets\281-2811643_mountain-dew-glass-bottle-250-ml-beer-bottle.png" />
+    <None Remove="Assets\96f6a7f7fffb782bf0e31a95e82acdfa.jpg" />
+    <None Remove="Assets\belly.jpeg" />
+    <None Remove="Assets\bt-sanmig-palepilsen_e6e7beea-5e80-420d-8769-0b2caaf2bc7c_1024x1024.png" />
+    <None Remove="Assets\ChicharonBulaklak-640-1.jpg" />
+    <None Remove="Assets\chicken_skin.jpeg" />
+    <None Remove="Assets\chicken_wings.jpg" />
+    <None Remove="Assets\Coke_mismo.jpg" />
     <None Remove="Assets\dineIn.jpg" />
+    <None Remove="Assets\Grilled-Stuffed-Milkfish-Recipe %281%29.jpg" />
+    <None Remove="Assets\isaw.jpg" />
+    <None Remove="Assets\lechon-kawali-recipe.jpg" />
+    <None Remove="Assets\Mang-Inasal-Halo-Halo-1024x1024.jpg" />
+    <None Remove="Assets\mangofloatrecipe.png" />
+    <None Remove="Assets\mountain_dew_plastic.jpg" />
+    <None Remove="Assets\Pork-Chop.jpg" />
+    <None Remove="Assets\rice.jpg" />
     <None Remove="Assets\take-out.jpg" />
+    <None Remove="Assets\th %281%29.jpg" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\96f6a7f7fffb782bf0e31a95e82acdfa.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\1790523662.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\281-2811643_mountain-dew-glass-bottle-250-ml-beer-bottle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\belly.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\bt-sanmig-palepilsen_e6e7beea-5e80-420d-8769-0b2caaf2bc7c_1024x1024.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\ChicharonBulaklak-640-1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\chicken_skin.jpeg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\chicken_wings.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Coke_mismo.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\dineIn.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Grilled-Stuffed-Milkfish-Recipe (1).jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\isaw.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\lechon-kawali-recipe.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Mang-Inasal-Halo-Halo-1024x1024.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\mangofloatrecipe.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\mountain_dew_plastic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Pork-Chop.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\rice.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\take-out.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\th (1).jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
