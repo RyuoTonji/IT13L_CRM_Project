@@ -1,1 +1,52 @@
-.vs/ 
+# Visual Studio
+.vs/
+.vscode/
+
+# Build directories
+bin/
+obj/
+out/
+[Bb]uild/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Compiled binaries
+*.dll
+*.exe
+*.pdb
+*.cache
+*.mdb
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Backup files
+*~
+*.bak
+
+# Publish folder
+publish/
+dist/
+release/
+debug/
+
+# Recycle Bin (Windows)
+$RECYCLE.BIN/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
