@@ -22,8 +22,6 @@ namespace MyKioski
             lblTotal = new Label();
             lblItemCount = new Label();
             panelHeader = new Panel();
-
-            btnDashboard = new Button();
             btnMyCart = new Button();
             lblTitle = new Label();
             picLogo = new PictureBox();
@@ -214,7 +212,6 @@ namespace MyKioski
             // 
             panelHeader.BackColor = Color.DarkRed;
             tableLayoutPanel1.SetColumnSpan(panelHeader, 2);
-            panelHeader.Controls.Add(btnDashboard);
             panelHeader.Controls.Add(btnMyCart);
             panelHeader.Controls.Add(lblTitle);
             panelHeader.Controls.Add(picLogo);
@@ -225,23 +222,11 @@ namespace MyKioski
             panelHeader.Size = new Size(1467, 109);
             panelHeader.TabIndex = 3;
             // 
-            // btnDashboard
-            // 
-            btnDashboard.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDashboard.Location = new Point(1198, 39);
-            btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new Size(75, 23);
-            btnDashboard.TabIndex = 3;
-            btnDashboard.Text = "Admin";
-            btnDashboard.UseVisualStyleBackColor = true;
-            btnDashboard.Click += btnDashboard_Click;
-            // 
             // btnMyCart
             // 
             btnMyCart.BackColor = Color.ForestGreen;
             btnMyCart.Dock = DockStyle.Right;
-
-            btnMyCart.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnMyCart.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btnMyCart.ForeColor = Color.White;
             btnMyCart.Location = new Point(1287, 0);
             btnMyCart.Name = "btnMyCart";
@@ -316,6 +301,5 @@ namespace MyKioski
         private Button btnDrinks;
         private Button btnDesserts;
         private Button btnMyCart;
-        private Button btnDashboard;
     }
 }
