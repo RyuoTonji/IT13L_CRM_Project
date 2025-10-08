@@ -61,7 +61,32 @@ namespace MyKioski
                  new MenuItem { Id = 26,Name = "Rice", Price = 10.00m, ImagePath = "rice.jpg", Category = "Sides"},
             };
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // When the user presses Ctrl + A
+            if (keyData == (Keys.Control | Keys.A))
+            {
+                // Create and show the Admin Dashboard
+                DashboardForm dashboard = new DashboardForm();
 
+                // Set the dashboard to kiosk mode (fullscreen, no borders)
+                dashboard.FormBorderStyle = FormBorderStyle.None;
+                dashboard.WindowState = FormWindowState.Maximized;
+                dashboard.TopMost = true;
+
+                // Show the dashboard and hide the menu form
+                dashboard.Show();
+                this.Hide();
+
+                // Stop other controls from handling this shortcut
+                return true;
+            }
+
+            // Otherwise, continue normal key handling
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+    
+        
         // --- THIS IS THE NEW, UPGRADED DISPLAY METHOD ---
         private void DisplayMenuItems(List<MenuItem> itemsToShow)
         {
@@ -178,7 +203,14 @@ namespace MyKioski
         private void btnDashboard_Click(object sender, EventArgs e)
         {
             DashboardForm dashboard = new DashboardForm();
-            dashboard.Show();
+
+            // Make it completely borderless and full screen
+            dashboard.FormBorderStyle = FormBorderStyle.None;
+            dashboard.WindowState = FormWindowState.Maximized;
+            dashboard.TopMost = true;  // keeps it above other windows
+
+            dashboard.Show();   
+            this.Hide();
         }
 
         private void btnMyCart_Click(object sender, EventArgs e)
