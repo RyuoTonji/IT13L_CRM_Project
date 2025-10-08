@@ -12,6 +12,9 @@
     <Compile Update="draftConfirmation.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="customerEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,32 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\IT13_rject\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|c:\\users\\user\\source\\repos\\it13_rject\\it13_rject\\customeremail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\customeremail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|c:\\users\\user\\source\\repos\\it13_rject\\it13_rject\\manageremailhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\manageremailhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|C:\\Users\\User\\source\\repos\\IT13_rject\\it13_rject\\draftconfirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\draftconfirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|c:\\users\\user\\source\\repos\\it13_rject\\it13_rject\\manageremailhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\manageremailhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|C:\\Users\\User\\source\\repos\\IT13_rject\\it13_rject\\confirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\confirmation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|C:\\Users\\User\\source\\repos\\IT13_rject\\it13_rject\\notificationofsentfeedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1FCAB3E-99A4-46A5-94A5-79C533D64D53}|IT13_rject\\IT13_rject.csproj|solutionrelative:it13_rject\\notificationofsentfeedback.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +34,84 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "customerEmail.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\customerEmail.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\customerEmail.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\customerEmail.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\customerEmail.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T01:41:33.343Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "managerEmailHandler.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\managerEmailHandler.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\managerEmailHandler.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\managerEmailHandler.cs",
+              "RelativeToolTip": "IT13_rject\\managerEmailHandler.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAqwCkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T01:39:41.011Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "managerEmailHandler.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\managerEmailHandler.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\managerEmailHandler.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\managerEmailHandler.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\managerEmailHandler.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T01:38:34.975Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Confirmation.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\Confirmation.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\Confirmation.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\Confirmation.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\Confirmation.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T01:17:01.336Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "draftConfirmation.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\draftConfirmation.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\draftConfirmation.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\draftConfirmation.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\draftConfirmation.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T01:17:00.403Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "notificationOfSentFeedback.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\notificationOfSentFeedback.cs",
+              "RelativeDocumentMoniker": "IT13_rject\\notificationOfSentFeedback.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\IT13_rject\\IT13_rject\\notificationOfSentFeedback.cs [Design]",
+              "RelativeToolTip": "IT13_rject\\notificationOfSentFeedback.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-08T01:17:00.142Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }

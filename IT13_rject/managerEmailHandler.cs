@@ -1,8 +1,8 @@
 namespace IT13_rject
 {
-    public partial class Form1 : Form
+    public partial class adminEmail : Form
     {
-        public Form1()
+        public adminEmail()
         {
             InitializeComponent();
         }

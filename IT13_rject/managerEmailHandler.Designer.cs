@@ -1,6 +1,6 @@
 ﻿namespace IT13_rject
 {
-    partial class Form1
+    partial class adminEmail
     {
         /// <summary>
         ///  Required designer variable.
@@ -68,7 +68,7 @@
             label1.Size = new Size(74, 15);
             label1.TabIndex = 3;
             label1.Text = "Ticker Name";
-            label1.Click += this.label1_Click;
+            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -88,7 +88,7 @@
             label3.Size = new Size(45, 15);
             label3.TabIndex = 8;
             label3.Text = "Priority";
-            label3.Click += this.label3_Click;
+            label3.Click += label3_Click;
             // 
             // textBox2
             // 
@@ -116,7 +116,7 @@
             button5.TabIndex = 11;
             button5.Text = "Send";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += this.button5_Click;
+            button5.Click += button5_Click;
             // 
             // button6
             // 
@@ -126,7 +126,7 @@
             button6.TabIndex = 12;
             button6.Text = "Dine In";
             button6.UseVisualStyleBackColor = true;
-            button6.Click += this.button6_Click;
+            button6.Click += button6_Click;
             // 
             // button7
             // 
@@ -145,7 +145,7 @@
             label4.Size = new Size(158, 15);
             label4.TabIndex = 15;
             label4.Text = "Customer Service Experience";
-            label4.Click += this.label4_Click;
+            label4.Click += label4_Click;
             // 
             // textBox1
             // 
@@ -182,7 +182,7 @@
             button9.TabIndex = 17;
             button9.Text = "Complaint";
             button9.UseVisualStyleBackColor = true;
-            button9.Click += this.button9_Click;
+            button9.Click += button9_Click;
             // 
             // button10
             // 
@@ -192,7 +192,7 @@
             button10.TabIndex = 16;
             button10.Text = "Inquiry";
             button10.UseVisualStyleBackColor = true;
-            button10.Click += this.button10_Click;
+            button10.Click += button10_Click;
             // 
             // button1
             // 
@@ -221,7 +221,7 @@
             button3.Text = "Low";
             button3.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // adminEmail
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -244,7 +244,7 @@
             Controls.Add(label1);
             Controls.Add(textBox3);
             Controls.Add(textBox1);
-            Name = "Form1";
+            Name = "adminEmail";
             Text = "Feedback ";
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
