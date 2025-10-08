@@ -233,6 +233,7 @@ namespace MyKioski
             Feedbackbtn.TabIndex = 3;
             Feedbackbtn.Text = "Customer Feedback";
             Feedbackbtn.UseVisualStyleBackColor = true;
+            Feedbackbtn.Click += Feedbackbtn_Click;
             // 
             // btnMyCart
             // 

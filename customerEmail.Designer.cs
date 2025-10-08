@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             textBox3 = new TextBox();
-            label1 = new Label();
+
             label2 = new Label();
             textBox2 = new TextBox();
             button4 = new Button();
@@ -39,7 +39,7 @@
             button7 = new Button();
             bindingSource1 = new BindingSource(components);
             label4 = new Label();
-            textBox1 = new TextBox();
+            
             label5 = new Label();
             button8 = new Button();
             button9 = new Button();
@@ -54,17 +54,7 @@
             textBox3.Name = "textBox3";
             textBox3.PlaceholderText = "Enter email address here";
             textBox3.Size = new Size(459, 33);
-            textBox3.TabIndex = 2;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(503, 29);
-            label1.Name = "label1";
-            label1.Size = new Size(73, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Ticker Name";
-            label1.Click += label1_Click;
+            textBox3.TabIndex = 2; 
             // 
             // label2
             // 
@@ -133,15 +123,6 @@
             label4.Text = "Customer Service Experience";
             label4.Click += label4_Click;
             // 
-            // textBox1
-            // 
-            textBox1.Location = new Point(503, 51);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Enter the concern here";
-            textBox1.Size = new Size(459, 33);
-            textBox1.TabIndex = 0;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -196,9 +177,8 @@
             Controls.Add(button4);
             Controls.Add(textBox2);
             Controls.Add(label2);
-            Controls.Add(label1);
             Controls.Add(textBox3);
-            Controls.Add(textBox1);
+
             Name = "customerEmail";
             Text = "Feedback ";
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
@@ -208,7 +188,6 @@
 
         #endregion
         private TextBox textBox3;
-        private Label label1;
         private Label label2;
         private TextBox textBox2;
         private Button button4;
@@ -217,7 +196,7 @@
         private Button button7;
         private BindingSource bindingSource1;
         private Label label4;
-        private TextBox textBox1;
+
         private Label label5;
         private Button button8;
         private Button button9;

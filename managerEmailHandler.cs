@@ -21,7 +21,7 @@ namespace MyKioski
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("Reply sent to customer!", "Reply Sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -52,6 +52,11 @@ namespace MyKioski
         private void button9_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Your feedback has been saved as a draft.", "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

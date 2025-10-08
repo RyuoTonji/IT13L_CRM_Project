@@ -63,30 +63,30 @@ namespace MyKioski
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            // When the user presses Ctrl + A
-            if (keyData == (Keys.Control | Keys.A))
+            // Handle Esc for exiting the app
+            if (keyData == Keys.Escape)
             {
-                // Create and show the Admin Dashboard
-                DashboardForm dashboard = new DashboardForm();
-
-                // Set the dashboard to kiosk mode (fullscreen, no borders)
-                dashboard.FormBorderStyle = FormBorderStyle.None;
-                dashboard.WindowState = FormWindowState.Maximized;
-                dashboard.TopMost = true;
-
-                // Show the dashboard and hide the menu form
-                dashboard.Show();
-                this.Hide();
-
-                // Stop other controls from handling this shortcut
+                Application.Exit();
                 return true;
             }
 
-            // Otherwise, continue normal key handling
+            // Handle Ctrl+A for admin dashboard
+            if (keyData == (Keys.Control | Keys.A))
+            {
+                DashboardForm dashboard = new DashboardForm();
+                dashboard.FormBorderStyle = FormBorderStyle.None;
+                dashboard.WindowState = FormWindowState.Maximized;
+                dashboard.TopMost = true;
+                dashboard.Show();
+                this.Hide();
+                return true;
+            }
+
+            // Normal key handling for other keys
             return base.ProcessCmdKey(ref msg, keyData);
         }
-    
-        
+
+
         // --- THIS IS THE NEW, UPGRADED DISPLAY METHOD ---
         private void DisplayMenuItems(List<MenuItem> itemsToShow)
         {
@@ -118,7 +118,7 @@ namespace MyKioski
                 {
                     // This is the same card-building code as before
                     Panel card = new Panel { Width = 200, Height = 250, Margin = new Padding(15), BackColor = Color.White };
-                    PictureBox pic = new PictureBox {SizeMode = PictureBoxSizeMode.Zoom, Dock = DockStyle.Top, Height = 140 };
+                    PictureBox pic = new PictureBox { SizeMode = PictureBoxSizeMode.Zoom, Dock = DockStyle.Top, Height = 140 };
                     string imagePath = Path.Combine(Application.StartupPath, "Assets", item.ImagePath);
 
                     if (File.Exists(imagePath))
@@ -209,7 +209,7 @@ namespace MyKioski
             dashboard.WindowState = FormWindowState.Maximized;
             dashboard.TopMost = true;  // keeps it above other windows
 
-            dashboard.Show();   
+            dashboard.Show();
             this.Hide();
         }
 
@@ -242,5 +242,26 @@ namespace MyKioski
             UpdateCartButton();
         }
 
+        private void Feedbackbtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+        "Are you a member?",
+        "Membership Check",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Show feedback form centered on screen
+                customerEmail feedbackForm = new customerEmail();
+                feedbackForm.StartPosition = FormStartPosition.CenterScreen;
+                feedbackForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must be a member to access feedback.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
+        }
     }
 }

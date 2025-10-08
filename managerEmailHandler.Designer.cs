@@ -65,10 +65,10 @@
             label1.AutoSize = true;
             label1.Location = new Point(503, 29);
             label1.Name = "label1";
-            label1.Size = new Size(74, 15);
+            label1.Size = new Size(73, 15);
             label1.TabIndex = 3;
             label1.Text = "Ticker Name";
-            label1.Click += this.label1_Click;
+            label1.Click += label1_Click;
             // 
             // label2
             // 
@@ -88,7 +88,7 @@
             label3.Size = new Size(45, 15);
             label3.TabIndex = 8;
             label3.Text = "Priority";
-            label3.Click += this.label3_Click;
+            label3.Click += label3_Click;
             // 
             // textBox2
             // 
@@ -107,6 +107,7 @@
             button4.TabIndex = 10;
             button4.Text = "Save as Draft";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button5
             // 
@@ -116,7 +117,7 @@
             button5.TabIndex = 11;
             button5.Text = "Send";
             button5.UseVisualStyleBackColor = true;
-            button5.Click += this.button5_Click;
+            button5.Click += button5_Click;
             // 
             // button6
             // 
@@ -126,7 +127,7 @@
             button6.TabIndex = 12;
             button6.Text = "Dine In";
             button6.UseVisualStyleBackColor = true;
-            button6.Click += this.button6_Click;
+            button6.Click += button6_Click;
             // 
             // button7
             // 
@@ -142,10 +143,10 @@
             label4.AutoSize = true;
             label4.Location = new Point(503, 108);
             label4.Name = "label4";
-            label4.Size = new Size(158, 15);
+            label4.Size = new Size(159, 15);
             label4.TabIndex = 15;
             label4.Text = "Customer Service Experience";
-            label4.Click += this.label4_Click;
+            label4.Click += label4_Click;
             // 
             // textBox1
             // 
@@ -161,7 +162,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(503, 281);
             label5.Name = "label5";
-            label5.Size = new Size(94, 15);
+            label5.Size = new Size(93, 15);
             label5.TabIndex = 19;
             label5.Text = "Type of Concern";
             // 
@@ -182,7 +183,7 @@
             button9.TabIndex = 17;
             button9.Text = "Complaint";
             button9.UseVisualStyleBackColor = true;
-            button9.Click += this.button9_Click;
+            button9.Click += button9_Click;
             // 
             // button10
             // 
@@ -192,7 +193,7 @@
             button10.TabIndex = 16;
             button10.Text = "Inquiry";
             button10.UseVisualStyleBackColor = true;
-            button10.Click += this.button10_Click;
+            button10.Click += button10_Click;
             // 
             // button1
             // 
@@ -225,6 +226,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.LightGray;
             ClientSize = new Size(983, 463);
             Controls.Add(button1);
             Controls.Add(button2);
