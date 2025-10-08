@@ -1,4 +1,4 @@
-﻿namespace IT13_rject
+﻿namespace MyKioski
 {
     partial class Form1
     {

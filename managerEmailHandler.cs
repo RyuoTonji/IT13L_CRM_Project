@@ -1,4 +1,6 @@
-namespace IT13_rject
+
+
+namespace MyKioski
 {
     public partial class Form1 : Form
     {

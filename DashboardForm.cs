@@ -26,12 +26,12 @@ namespace MyKioski
 
             contentPanels.Add(panelFoodOrders);
             contentPanels.Add(panelAnalytics);
-            contentPanels.Add(panel3rdSetting);
             contentPanels.Add(panelCustomerAdmin);
+            //contentPanels.Add(panel3rdSetting);
+
 
             btnNavFoodOrders.Click += (s, ev) => ShowPanel(panelFoodOrders);
             btnNavAnalytics.Click += (s, ev) => { ShowPanel(panelAnalytics); LoadAnalytics(); };
-            btnNav3rdSetting.Click += (s, ev) => ShowPanel(panel3rdSetting);
             btnNavCustomerAdmin.Click += (s, ev) => ShowPanel(panelCustomerAdmin);
 
             LoadOrders();
@@ -142,6 +142,7 @@ namespace MyKioski
 
         private void PopulateDailySalesChart()
         {
+            chartDailySales.Series.Clear();
             chartDailySales.Series.Clear();
             chartDailySales.Titles.Clear();
             chartDailySales.Titles.Add("Daily Sales (Last 7 Days)");

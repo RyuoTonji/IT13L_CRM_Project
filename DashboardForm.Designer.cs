@@ -25,7 +25,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.btnNavCustomerAdmin = new System.Windows.Forms.Button();
-            this.btnNav3rdSetting = new System.Windows.Forms.Button();
+
             this.btnNavAnalytics = new System.Windows.Forms.Button();
             this.btnNavFoodOrders = new System.Windows.Forms.Button();
             this.lblDashboardTitle = new System.Windows.Forms.Label();
@@ -33,7 +33,7 @@
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelCustomerAdmin = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
-            this.panel3rdSetting = new System.Windows.Forms.Panel();
+
             this.label3 = new System.Windows.Forms.Label();
             this.panelAnalytics = new System.Windows.Forms.Panel();
             this.tableLayoutAnalytics = new System.Windows.Forms.TableLayoutPanel();
@@ -64,7 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDashboardLogo)).BeginInit();
             this.panelContent.SuspendLayout();
             this.panelCustomerAdmin.SuspendLayout();
-            this.panel3rdSetting.SuspendLayout();
+
             this.panelAnalytics.SuspendLayout();
             this.tableLayoutAnalytics.SuspendLayout();
             this.flowLayoutStats.SuspendLayout();
@@ -101,7 +101,7 @@
             // 
             this.panelNavigation.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelNavigation.Controls.Add(this.btnNavCustomerAdmin);
-            this.panelNavigation.Controls.Add(this.btnNav3rdSetting);
+
             this.panelNavigation.Controls.Add(this.btnNavAnalytics);
             this.panelNavigation.Controls.Add(this.btnNavFoodOrders);
             this.panelNavigation.Controls.Add(this.lblDashboardTitle);
@@ -124,17 +124,7 @@
             this.btnNavCustomerAdmin.Text = "Customer Feedback";
             this.btnNavCustomerAdmin.UseVisualStyleBackColor = true;
             // 
-            // btnNav3rdSetting
-            // 
-            this.btnNav3rdSetting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnNav3rdSetting.Font = new System.Drawing.Font("Poppins", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnNav3rdSetting.Location = new System.Drawing.Point(0, 311);
-            this.btnNav3rdSetting.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnNav3rdSetting.Name = "btnNav3rdSetting";
-            this.btnNav3rdSetting.Size = new System.Drawing.Size(249, 69);
-            this.btnNav3rdSetting.TabIndex = 4;
-            this.btnNav3rdSetting.Text = "3rd Setting";
-            this.btnNav3rdSetting.UseVisualStyleBackColor = true;
+
             // 
             // btnNavAnalytics
             // 
@@ -186,7 +176,7 @@
             // panelContent
             // 
             this.panelContent.Controls.Add(this.panelCustomerAdmin);
-            this.panelContent.Controls.Add(this.panel3rdSetting);
+
             this.panelContent.Controls.Add(this.panelAnalytics);
             this.panelContent.Controls.Add(this.panelFoodOrders);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -218,15 +208,7 @@
             this.label4.Text = "Customer Feedback";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel3rdSetting
-            // 
-            this.panel3rdSetting.BackColor = System.Drawing.Color.LightCoral;
-            this.panel3rdSetting.Controls.Add(this.label3);
-            this.panel3rdSetting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3rdSetting.Location = new System.Drawing.Point(0, 0);
-            this.panel3rdSetting.Name = "panel3rdSetting";
-            this.panel3rdSetting.Size = new System.Drawing.Size(1210, 835);
-            this.panel3rdSetting.TabIndex = 2;
+
             // 
             // label3
             // 
@@ -545,7 +527,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDashboardLogo)).EndInit();
             this.panelContent.ResumeLayout(false);
             this.panelCustomerAdmin.ResumeLayout(false);
-            this.panel3rdSetting.ResumeLayout(false);
+
             this.panelAnalytics.ResumeLayout(false);
             this.tableLayoutAnalytics.ResumeLayout(false);
             this.flowLayoutStats.ResumeLayout(false);
@@ -569,7 +551,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Panel panelNavigation;
         private System.Windows.Forms.Button btnNavCustomerAdmin;
-        private System.Windows.Forms.Button btnNav3rdSetting;
+
         private System.Windows.Forms.Button btnNavAnalytics;
         private System.Windows.Forms.Button btnNavFoodOrders;
         private System.Windows.Forms.Label lblDashboardTitle;
@@ -584,7 +566,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panelCustomerAdmin;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Panel panel3rdSetting;
+
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutAnalytics;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutStats;

@@ -91,12 +91,12 @@ namespace MyKioski
                         .GetString();
 
                     // Generate QR Code
-                    QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(checkoutUrl, QRCodeGenerator.ECCLevel.Q);
-                    QRCode qrCode = new QRCode(qrCodeData);
+                   // QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                   // QRCodeData qrCodeData = qrGenerator.CreateQrCode(checkoutUrl, QRCodeGenerator.ECCLevel.Q);
+                  //  QRCode qrCode = new QRCode(qrCodeData);
 
                     // Show in PictureBox (make sure you have a PictureBox named "pictureBoxQR" on your form)
-                    pictureBoxQR.Image = qrCode.GetGraphic(5);
+                  //  pictureBoxQR.Image = qrCode.GetGraphic(5);
 
                     // Clear the cart
                     Cart.ClearCart();
