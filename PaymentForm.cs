@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using QRCoder;
 using DotNetEnv;
 
 namespace MyKioski
@@ -44,12 +45,19 @@ namespace MyKioski
                 decimal totalAmount = Cart.GetTotal();
                 long amountInCentavos = (long)(totalAmount * 100); // PayMongo uses centavos
 
-                string stripeSecretKey = Environment.GetEnvironmentVariable("STRIPE_SECRET_KEY");
-                string authHeader = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(stripeSecretKey));
+                // Use your test key (change STRIPE_SECRET_KEY to PAYMONGO_SECRET_KEY)
+                string secretKey = Environment.GetEnvironmentVariable("PAYMONGO_SECRET_KEY");
+                if (string.IsNullOrEmpty(secretKey))
+                {
+                    MessageBox.Show("Missing PAYMONGO_SECRET_KEY in your .env file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                string authHeader = Convert.ToBase64String(Encoding.UTF8.GetBytes(secretKey + ":"));
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Add("Authorization", "Basic " + authHeader);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authHeader);
 
                     var requestData = new
                     {
@@ -69,8 +77,8 @@ namespace MyKioski
                         }
                     };
 
-                    string jsonString = System.Text.Json.JsonSerializer.Serialize(requestData);
-                    var content = new StringContent(jsonString, System.Text.Encoding.UTF8, "application/json");
+                    string jsonString = JsonSerializer.Serialize(requestData);
+                    var content = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await client.PostAsync("https://api.paymongo.com/v1/sources", content);
                     string responseString = await response.Content.ReadAsStringAsync();
@@ -81,7 +89,7 @@ namespace MyKioski
                         return;
                     }
 
-                    var jsonDoc = System.Text.Json.JsonDocument.Parse(responseString);
+                    var jsonDoc = JsonDocument.Parse(responseString);
                     string checkoutUrl = jsonDoc
                         .RootElement
                         .GetProperty("data")
@@ -94,9 +102,12 @@ namespace MyKioski
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
                     QRCodeData qrCodeData = qrGenerator.CreateQrCode(checkoutUrl, QRCodeGenerator.ECCLevel.Q);
                     QRCode qrCode = new QRCode(qrCodeData);
+                    Bitmap qrImage = qrCode.GetGraphic(5);
 
-                    // Show in PictureBox (make sure you have a PictureBox named "pictureBoxQR" on your form)
-                    pictureBoxQR.Image = qrCode.GetGraphic(5);
+                    // Show in a new form
+                    PaymentQRForm qrForm = new PaymentQRForm();
+                    qrForm.pictureBoxQR.Image = qrImage; // Ensure pictureBoxQR is public or has a public property
+                    qrForm.ShowDialog();
 
                     // Clear the cart
                     Cart.ClearCart();
