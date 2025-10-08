@@ -1,11 +1,12 @@
 ﻿using MyKioski.Models;
-using QRCoder;
+//using QRCoder;
 using System;
 using System.Windows.Forms;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using DotNetEnv;
 
 namespace MyKioski
 {
@@ -14,6 +15,7 @@ namespace MyKioski
         public PaymentForm()
         {
             InitializeComponent();
+            Env.Load();
         }
 
         private void PaymentForm_Load(object sender, EventArgs e)
@@ -42,8 +44,8 @@ namespace MyKioski
                 decimal totalAmount = Cart.GetTotal();
                 long amountInCentavos = (long)(totalAmount * 100); // PayMongo uses centavos
 
-                string secretKey = "sk_test_UgfaveVmmD1bAwJ2N8VTVjpP"; // Replace with your test secret key
-                string authHeader = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(secretKey));
+                string stripeSecretKey = Environment.GetEnvironmentVariable("STRIPE_SECRET_KEY");
+                string authHeader = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(stripeSecretKey));
 
                 using (HttpClient client = new HttpClient())
                 {
