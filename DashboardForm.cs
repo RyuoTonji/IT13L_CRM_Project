@@ -13,6 +13,9 @@ namespace MyKioski
     {
         private List<Panel> contentPanels = new List<Panel>();
 
+        // store mock feedback list (in-memory)
+        private List<MockFeedback> mockFeedbackList = new List<MockFeedback>();
+
         public DashboardForm()
         {
             InitializeComponent();
@@ -29,10 +32,13 @@ namespace MyKioski
             contentPanels.Add(panelCustomerAdmin);
             //contentPanels.Add(panel3rdSetting);
 
-
+            // nav button handlers - customer admin will load feedback when clicked
             btnNavFoodOrders.Click += (s, ev) => ShowPanel(panelFoodOrders);
             btnNavAnalytics.Click += (s, ev) => { ShowPanel(panelAnalytics); LoadAnalytics(); };
-            btnNavCustomerAdmin.Click += (s, ev) => ShowPanel(panelCustomerAdmin);
+            btnNavCustomerAdmin.Click += (s, ev) => {
+                ShowPanel(panelCustomerAdmin);
+                LoadCustomerFeedback(); // load only when clicking Customer Feedback
+            };
 
             LoadOrders();
             LoadAnalytics();
@@ -88,8 +94,12 @@ namespace MyKioski
             }
 
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvOrders.Columns["colView"].Width = 80;
-            dgvOrders.Columns["colDelete"].Width = 80;
+            try
+            {
+                dgvOrders.Columns["colView"].Width = 80;
+                dgvOrders.Columns["colDelete"].Width = 80;
+            }
+            catch { }
         }
 
         private void dgvOrders_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -143,7 +153,6 @@ namespace MyKioski
         private void PopulateDailySalesChart()
         {
             chartDailySales.Series.Clear();
-            chartDailySales.Series.Clear();
             chartDailySales.Titles.Clear();
             chartDailySales.Titles.Add("Daily Sales (Last 7 Days)");
 
@@ -184,23 +193,148 @@ namespace MyKioski
         }
         #endregion
 
+        #region Customer Feedback (mock data + grid)
+        private void LoadCustomerFeedback()
+        {
+            // Prepare in-memory mock data (simple set each time)
+            mockFeedbackList = new List<MockFeedback>
+            {
+                new MockFeedback { Email = "maria@gmail.com", Type = "Service Quality", Date = DateTime.Now.Date.AddDays(-0).ToShortDateString(), Time = "10:30 AM", Priority = "High", Status = "Pending" },
+                new MockFeedback { Email = "john@yahoo.com", Type = "Food Taste", Date = DateTime.Now.Date.AddDays(-1).ToShortDateString(), Time = "12:00 PM", Priority = "Medium", Status = "Reviewed" },
+                new MockFeedback { Email = "anne@gmail.com", Type = "Cleanliness", Date = DateTime.Now.Date.AddDays(-2).ToShortDateString(), Time = "09:45 AM", Priority = "Low", Status = "Resolved" }
+            };
+
+            // Clear existing
+            dgvCustomerFeedback.Rows.Clear();
+            dgvCustomerFeedback.Columns.Clear();
+
+            // Add columns
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colEmail", HeaderText = "Email ID Number" });
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colType", HeaderText = "Feedback Type" });
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colDate", HeaderText = "Date" });
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colTime", HeaderText = "Time" });
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colPriority", HeaderText = "Priority Level" });
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colStatus", HeaderText = "Feedback Status" });
+
+            // Image columns for edit & delete
+            var editCol = new DataGridViewImageColumn()
+            {
+                Name = "colEdit",
+                HeaderText = "",
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                Width = 40
+            };
+
+            var deleteCol = new DataGridViewImageColumn()
+            {
+                Name = "colDelete",
+                HeaderText = "",
+                ImageLayout = DataGridViewImageCellLayout.Zoom,
+                Width = 40
+            };
+
+            // Attempt to load icons from Assets
+            try
+            {
+                string editPath = Path.Combine(Application.StartupPath, "Assets", "edit.png");
+                string deletePath = Path.Combine(Application.StartupPath, "Assets", "delete.png");
+
+                if (File.Exists(editPath))
+                    editCol.Image = Image.FromFile(editPath);
+                else
+                    Console.WriteLine($"Edit icon not found: {editPath}");
+
+                if (File.Exists(deletePath))
+                    deleteCol.Image = Image.FromFile(deletePath);
+                else
+                    Console.WriteLine($"Delete icon not found: {deletePath}");
+                    Console.WriteLine($"Delete icon not found: {deletePath}");
+            }
+            catch
+            {
+                // ignore image load issues — columns will still be there
+            }
+
+            dgvCustomerFeedback.Columns.Add(editCol);
+            dgvCustomerFeedback.Columns.Add(deleteCol);
+
+            // Add rows from mockFeedbackList
+            foreach (var f in mockFeedbackList)
+            {
+                dgvCustomerFeedback.Rows.Add(
+                    f.Email,
+                    f.Type,
+                    f.Date,
+                    f.Time,
+                    f.Priority,
+                    f.Status,
+                    null,
+                    null
+                );
+            }
+
+            // Appearance
+            dgvCustomerFeedback.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustomerFeedback.RowTemplate.Height = 40;
+            dgvCustomerFeedback.ClearSelection();
+
+            // Wire the click event (remove previous to prevent multiple subscriptions)
+            dgvCustomerFeedback.CellContentClick -= dgvCustomerFeedback_CellContentClick;
+            dgvCustomerFeedback.CellContentClick += dgvCustomerFeedback_CellContentClick;
+        }
+
+        private void dgvCustomerFeedback_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            // Make sure column names exist
+            var colName = dgvCustomerFeedback.Columns[e.ColumnIndex].Name;
+
+            if (colName == "colEdit")
+            {
+                var email = dgvCustomerFeedback.Rows[e.RowIndex].Cells["colEmail"].Value?.ToString();
+                MessageBox.Show($"Edit feedback from {email}", "Edit Feedback", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Placeholder - you can open an edit form here
+            }
+            else if (colName == "colDelete")
+            {
+                var email = dgvCustomerFeedback.Rows[e.RowIndex].Cells["colEmail"].Value?.ToString();
+                var result = MessageBox.Show($"Are you sure you want to delete feedback from {email}?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    dgvCustomerFeedback.Rows.RemoveAt(e.RowIndex);
+                    // If you'd persist to DB later, call deletion code here
+                }
+            }
+        }
+        #endregion
+
         // 🔐 Secret shortcut: Ctrl + D returns to MenuForm (no ESC, no exit)
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.D))
             {
-                // Return to menu screen
                 MenuForm menu = new MenuForm();
                 menu.FormBorderStyle = FormBorderStyle.None;
                 menu.WindowState = FormWindowState.Maximized;
                 menu.TopMost = true;
                 menu.Show();
-                this.Hide(); // hide dashboard instead of closing app
+                this.Hide();
                 return true;
             }
 
-            // No other keys allowed
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        // small mock DTO
+        private class MockFeedback
+        {
+            public string Email { get; set; }
+            public string Type { get; set; }
+            public string Date { get; set; }
+            public string Time { get; set; }
+            public string Priority { get; set; }
+            public string Status { get; set; }
         }
     }
 }

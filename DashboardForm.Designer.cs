@@ -25,7 +25,6 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panelNavigation = new System.Windows.Forms.Panel();
             this.btnNavCustomerAdmin = new System.Windows.Forms.Button();
-
             this.btnNavAnalytics = new System.Windows.Forms.Button();
             this.btnNavFoodOrders = new System.Windows.Forms.Button();
             this.lblDashboardTitle = new System.Windows.Forms.Label();
@@ -33,6 +32,40 @@
             this.panelContent = new System.Windows.Forms.Panel();
             this.panelCustomerAdmin = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
+
+            // 🟡 --- CUSTOMER FEEDBACK DASHBOARD INSERT ---
+            this.panelFeedbackHeader = new System.Windows.Forms.Panel();
+            this.lblFeedbackHeader = new System.Windows.Forms.Label();
+            this.dgvCustomerFeedback = new System.Windows.Forms.DataGridView();
+            // Add new controls into CustomerAdmin panel (inserted; label4 left intact)
+            this.panelCustomerAdmin.Controls.Add(this.dgvCustomerFeedback);
+            this.panelCustomerAdmin.Controls.Add(this.panelFeedbackHeader);
+
+            // panelFeedbackHeader
+            this.panelFeedbackHeader.BackColor = System.Drawing.Color.IndianRed;
+            this.panelFeedbackHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelFeedbackHeader.Height = 69;
+            this.panelFeedbackHeader.Controls.Add(this.lblFeedbackHeader);
+
+            // lblFeedbackHeader
+            this.lblFeedbackHeader.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblFeedbackHeader.Font = new System.Drawing.Font("Poppins", 20.25F, System.Drawing.FontStyle.Bold);
+            this.lblFeedbackHeader.Text = "Customer Feedback";
+            this.lblFeedbackHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+
+            // dgvCustomerFeedback
+            this.dgvCustomerFeedback.AllowUserToAddRows = false;
+            this.dgvCustomerFeedback.AllowUserToDeleteRows = false;
+            this.dgvCustomerFeedback.BackgroundColor = System.Drawing.Color.White;
+            this.dgvCustomerFeedback.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCustomerFeedback.ReadOnly = true;
+            this.dgvCustomerFeedback.RowHeadersVisible = false;
+            this.dgvCustomerFeedback.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCustomerFeedback.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCustomerFeedback.Location = new System.Drawing.Point(0, 69);
+            this.dgvCustomerFeedback.Name = "dgvCustomerFeedback";
+            this.dgvCustomerFeedback.TabIndex = 2;
+            // 🟡 --- END INSERT ---
 
             this.label3 = new System.Windows.Forms.Label();
             this.panelAnalytics = new System.Windows.Forms.Panel();
@@ -64,7 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picDashboardLogo)).BeginInit();
             this.panelContent.SuspendLayout();
             this.panelCustomerAdmin.SuspendLayout();
-
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomerFeedback)).BeginInit();
             this.panelAnalytics.SuspendLayout();
             this.tableLayoutAnalytics.SuspendLayout();
             this.flowLayoutStats.SuspendLayout();
@@ -101,7 +134,6 @@
             // 
             this.panelNavigation.BackColor = System.Drawing.Color.WhiteSmoke;
             this.panelNavigation.Controls.Add(this.btnNavCustomerAdmin);
-
             this.panelNavigation.Controls.Add(this.btnNavAnalytics);
             this.panelNavigation.Controls.Add(this.btnNavFoodOrders);
             this.panelNavigation.Controls.Add(this.lblDashboardTitle);
@@ -123,8 +155,6 @@
             this.btnNavCustomerAdmin.TabIndex = 5;
             this.btnNavCustomerAdmin.Text = "Customer Feedback";
             this.btnNavCustomerAdmin.UseVisualStyleBackColor = true;
-            // 
-
             // 
             // btnNavAnalytics
             // 
@@ -176,7 +206,6 @@
             // panelContent
             // 
             this.panelContent.Controls.Add(this.panelCustomerAdmin);
-
             this.panelContent.Controls.Add(this.panelAnalytics);
             this.panelContent.Controls.Add(this.panelFoodOrders);
             this.panelContent.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -189,12 +218,13 @@
             // panelCustomerAdmin
             // 
             this.panelCustomerAdmin.BackColor = System.Drawing.Color.LightGoldenrodYellow;
-            this.panelCustomerAdmin.Controls.Add(this.label4);
+            //this.panelCustomerAdmin.Controls.Add(this.label4);
             this.panelCustomerAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCustomerAdmin.Location = new System.Drawing.Point(0, 0);
             this.panelCustomerAdmin.Name = "panelCustomerAdmin";
             this.panelCustomerAdmin.Size = new System.Drawing.Size(1210, 835);
             this.panelCustomerAdmin.TabIndex = 3;
+
             // 
             // label4
             // 
@@ -205,10 +235,8 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(1210, 69);
             this.label4.TabIndex = 1;
-            this.label4.Text = "Customer Feedback";
+            
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-
             // 
             // label3
             // 
@@ -541,6 +569,7 @@
             this.panelAnalyticsHeader.ResumeLayout(false);
             this.panelFoodOrders.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCustomerFeedback)).EndInit();
             this.panelOrdersHeader.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -585,5 +614,10 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutCharts;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartDailySales;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCategorySales;
+
+        // 🟡 --- CUSTOMER FEEDBACK COMPONENT FIELDS ---
+        private System.Windows.Forms.Panel panelFeedbackHeader;
+        private System.Windows.Forms.Label lblFeedbackHeader;
+        private System.Windows.Forms.DataGridView dgvCustomerFeedback;
     }
 }
