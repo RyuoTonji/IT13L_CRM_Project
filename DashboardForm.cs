@@ -35,7 +35,8 @@ namespace MyKioski
             // nav button handlers - customer admin will load feedback when clicked
             btnNavFoodOrders.Click += (s, ev) => ShowPanel(panelFoodOrders);
             btnNavAnalytics.Click += (s, ev) => { ShowPanel(panelAnalytics); LoadAnalytics(); };
-            btnNavCustomerAdmin.Click += (s, ev) => {
+            btnNavCustomerAdmin.Click += (s, ev) =>
+            {
                 ShowPanel(panelCustomerAdmin);
                 LoadCustomerFeedback(); // load only when clicking Customer Feedback
             };
@@ -248,7 +249,7 @@ namespace MyKioski
                     deleteCol.Image = Image.FromFile(deletePath);
                 else
                     Console.WriteLine($"Delete icon not found: {deletePath}");
-                    Console.WriteLine($"Delete icon not found: {deletePath}");
+                Console.WriteLine($"Delete icon not found: {deletePath}");
             }
             catch
             {
@@ -335,6 +336,11 @@ namespace MyKioski
             public string Time { get; set; }
             public string Priority { get; set; }
             public string Status { get; set; }
+        }
+
+        private void btnNavFoodOrders_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

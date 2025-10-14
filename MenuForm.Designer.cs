@@ -285,7 +285,6 @@ namespace MyKioski
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 3, 4, 3);
             Name = "MenuForm";
-            Text = "MenuForm";
             WindowState = FormWindowState.Maximized;
             Load += MenuForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
