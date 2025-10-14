@@ -22,6 +22,7 @@ namespace MyKioski
             lblTotal = new Label();
             lblItemCount = new Label();
             panelHeader = new Panel();
+            Feedbackbtn = new Button();
             btnMyCart = new Button();
             lblTitle = new Label();
             picLogo = new PictureBox();
@@ -212,6 +213,7 @@ namespace MyKioski
             // 
             panelHeader.BackColor = Color.DarkRed;
             tableLayoutPanel1.SetColumnSpan(panelHeader, 2);
+            panelHeader.Controls.Add(Feedbackbtn);
             panelHeader.Controls.Add(btnMyCart);
             panelHeader.Controls.Add(lblTitle);
             panelHeader.Controls.Add(picLogo);
@@ -221,6 +223,17 @@ namespace MyKioski
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(1467, 109);
             panelHeader.TabIndex = 3;
+            // 
+            // Feedbackbtn
+            // 
+            Feedbackbtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Feedbackbtn.Location = new Point(1156, 3);
+            Feedbackbtn.Name = "Feedbackbtn";
+            Feedbackbtn.Size = new Size(125, 103);
+            Feedbackbtn.TabIndex = 3;
+            Feedbackbtn.Text = "Customer Feedback";
+            Feedbackbtn.UseVisualStyleBackColor = true;
+            Feedbackbtn.Click += Feedbackbtn_Click;
             // 
             // btnMyCart
             // 
@@ -272,7 +285,6 @@ namespace MyKioski
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 3, 4, 3);
             Name = "MenuForm";
-            Text = "MenuForm";
             WindowState = FormWindowState.Maximized;
             Load += MenuForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
@@ -301,5 +313,6 @@ namespace MyKioski
         private Button btnDrinks;
         private Button btnDesserts;
         private Button btnMyCart;
+        private Button Feedbackbtn;
     }
 }
