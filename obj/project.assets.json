@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Francis John\\source\\repos\\IT13L_CRM_Project - Copy\\MyKioskApp.csproj",
+      "projectUniqueName": "C:\\Users\\Francis John\\Source\\Repos\\IT13L_CRM_Project1\\MyKioskApp.csproj",
       "projectName": "MyKioskApp",
-      "projectPath": "C:\\Users\\Francis John\\source\\repos\\IT13L_CRM_Project - Copy\\MyKioskApp.csproj",
+      "projectPath": "C:\\Users\\Francis John\\Source\\Repos\\IT13L_CRM_Project1\\MyKioskApp.csproj",
       "packagesPath": "C:\\Users\\Francis John\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Francis John\\source\\repos\\IT13L_CRM_Project - Copy\\obj\\",
+      "outputPath": "C:\\Users\\Francis John\\Source\\Repos\\IT13L_CRM_Project1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

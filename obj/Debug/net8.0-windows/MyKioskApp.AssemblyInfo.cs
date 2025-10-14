@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyKioskApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac50172a354ed0ae3838171bb47d82737d658cb8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+195ca3d09904d721836b01af6a321abd6cbebf8a")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyKioskApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyKioskApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
