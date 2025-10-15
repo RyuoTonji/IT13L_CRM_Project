@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vqyGaEGXGTU=",
+  "dgSpecHash": "fjFfFt6A7vg=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Francis John\\Source\\Repos\\IT13L_CRM_Project1\\MyKioskApp.csproj",
+  "projectFilePath": "C:\\Users\\Francis John\\Source\\Repos\\IT13L_CRM_Project2\\MyKioskApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Francis John\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.20\\microsoft.windowsdesktop.app.ref.7.0.20.nupkg.sha512",
     "C:\\Users\\Francis John\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.20\\microsoft.netcore.app.ref.7.0.20.nupkg.sha512",
