@@ -11,7 +11,10 @@ namespace MyKioski
     {
         private List<MenuItem> allMenuItems;
 
-        public MenuForm() { InitializeComponent(); }
+        public MenuForm() { 
+            InitializeComponent();
+            this.KeyPreview = true;
+        }
 
         private void MenuForm_Load(object sender, EventArgs e)
         {
@@ -61,6 +64,44 @@ namespace MyKioski
                  new MenuItem { Id = 26,Name = "Rice", Price = 10.00m, ImagePath = "rice.jpg", Category = "Sides"},
             };
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            // Handle Esc for exiting the app
+            if (keyData == Keys.Escape)
+            {
+                Application.Exit();
+                return true;
+            }
+
+            // Handle Ctrl+A for admin dashboard
+            if (keyData == (Keys.Control | Keys.A))
+            {
+                // Check if Dashboard already exists
+                DashboardForm existingDashboard = Application.OpenForms.OfType<DashboardForm>().FirstOrDefault();
+
+                if (existingDashboard != null)
+                {
+                    existingDashboard.WindowState = FormWindowState.Maximized;
+                    existingDashboard.Show();
+                    existingDashboard.BringToFront();
+                    this.Hide();
+                }
+                else
+                {
+                    DashboardForm dashboard = new DashboardForm();
+                    dashboard.FormBorderStyle = FormBorderStyle.None;
+                    dashboard.WindowState = FormWindowState.Maximized;
+                    dashboard.TopMost = true;
+                    dashboard.Show();
+                    this.Hide();
+                }
+
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
 
         // --- THIS IS THE NEW, UPGRADED DISPLAY METHOD ---
         private void DisplayMenuItems(List<MenuItem> itemsToShow)
@@ -93,7 +134,7 @@ namespace MyKioski
                 {
                     // This is the same card-building code as before
                     Panel card = new Panel { Width = 200, Height = 250, Margin = new Padding(15), BackColor = Color.White };
-                    PictureBox pic = new PictureBox {SizeMode = PictureBoxSizeMode.Zoom, Dock = DockStyle.Top, Height = 140 };
+                    PictureBox pic = new PictureBox { SizeMode = PictureBoxSizeMode.Zoom, Dock = DockStyle.Top, Height = 140 };
                     string imagePath = Path.Combine(Application.StartupPath, "Assets", item.ImagePath);
 
                     if (File.Exists(imagePath))
@@ -172,6 +213,20 @@ namespace MyKioski
                 var filteredItems = allMenuItems.Where(item => item.Category == category).ToList();
                 DisplayMenuItems(filteredItems);
             }
+
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            DashboardForm dashboard = new DashboardForm();
+
+            // Make it completely borderless and full screen
+            dashboard.FormBorderStyle = FormBorderStyle.None;
+            dashboard.WindowState = FormWindowState.Maximized;
+            dashboard.TopMost = true;  // keeps it above other windows
+
+            dashboard.Show();
+            this.Hide();
         }
 
         private void btnMyCart_Click(object sender, EventArgs e)
@@ -201,6 +256,28 @@ namespace MyKioski
 
             UpdateOrderSummary();
             UpdateCartButton();
+        }
+
+        private void Feedbackbtn_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+        "Are you a member?",
+        "Membership Check",
+        MessageBoxButtons.YesNo,
+        MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Show feedback form centered on screen
+                customerEmail feedbackForm = new customerEmail();
+                feedbackForm.StartPosition = FormStartPosition.CenterScreen;
+                feedbackForm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You must be a member to access feedback.", "Access Denied", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
 
     }
