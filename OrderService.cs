@@ -9,8 +9,7 @@ namespace MyKioski
 {
     public static class OrderService
     {
-        // TODO: Update this connection string with your SQL Server details
-        private static readonly string connectionString = @"Server=DRACARYS\SQLEXPRESS;Database=MyKioskApp;Integrated Security=true;";
+        private static readonly string connectionString = @"Server=DRACARYS\SQLEXPRESS;Database=MyKioskApp;Integrated Security=true;TrustServerCertificate=true;";
 
         public static List<Order> GetAllOrders()
         {
@@ -38,7 +37,7 @@ namespace MyKioski
                             Order order = new Order
                             {
                                 OrderId = reader["OrderID"].ToString(),
-                                PaymentMethod = "Cash", // placeholder since column doesn’t exist
+                                PaymentMethod = "Cash", // Default since column doesn't exist
                                 OrderDateTime = Convert.ToDateTime(reader["date"]),
                                 TotalAmount = Convert.ToDecimal(reader["total_price"]),
                                 OrderStatus = reader["status"].ToString(),
@@ -51,12 +50,11 @@ namespace MyKioski
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"Error loading orders: {ex.Message}", "Database Error");
+                System.Windows.Forms.MessageBox.Show($"Error loading orders: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Database Error");
             }
 
             return orders;
         }
-
 
         public static Order GetOrderWithItems(string orderId)
         {
@@ -68,11 +66,11 @@ namespace MyKioski
                 {
                     conn.Open();
 
-                    // Get order details
+                    // Get order details using ACTUAL column names
                     string orderQuery = @"
-                        SELECT OrderId, PaymentMethod, OrderDateTime, TotalAmount, OrderStatus
+                        SELECT OrderID, date, total_price, status
                         FROM Orders
-                        WHERE OrderId = @OrderId";
+                        WHERE OrderID = @OrderId";
 
                     using (SqlCommand cmd = new SqlCommand(orderQuery, conn))
                     {
@@ -83,28 +81,29 @@ namespace MyKioski
                             {
                                 order = new Order
                                 {
-                                    OrderId = reader["OrderId"].ToString(),
-                                    PaymentMethod = reader["PaymentMethod"].ToString(),
-                                    OrderDateTime = Convert.ToDateTime(reader["OrderDateTime"]),
-                                    TotalAmount = Convert.ToDecimal(reader["TotalAmount"]),
-                                    OrderStatus = reader["OrderStatus"].ToString(),
+                                    OrderId = reader["OrderID"].ToString(),
+                                    PaymentMethod = "Cash", // Default
+                                    OrderDateTime = Convert.ToDateTime(reader["date"]),
+                                    TotalAmount = Convert.ToDecimal(reader["total_price"]),
+                                    OrderStatus = reader["status"].ToString(),
                                     Items = new List<CartItem>()
                                 };
                             }
                         }
                     }
 
-                    // Get order items
+                    // Get order items if they exist - FIXED to use actual column names
                     if (order != null)
                     {
                         string itemsQuery = @"
                             SELECT 
-                                oi.ItemId,
-                                oi.ItemName,
-                                oi.ItemPrice,
-                                oi.Quantity
+                                oi.productid,
+                                p.productname,
+                                p.price,
+                                oi.quantity
                             FROM OrderItems oi
-                            WHERE oi.OrderId = @OrderId";
+                            INNER JOIN products p ON oi.productid = p.ProductID
+                            WHERE oi.orderid = @OrderId";
 
                         using (SqlCommand cmd = new SqlCommand(itemsQuery, conn))
                         {
@@ -117,11 +116,11 @@ namespace MyKioski
                                     {
                                         Item = new MenuItem
                                         {
-                                            Id = Convert.ToInt32(reader["ItemId"]),
-                                            Name = reader["ItemName"].ToString(),
-                                            Price = Convert.ToDecimal(reader["ItemPrice"])
+                                            Id = Convert.ToInt32(reader["productid"]),
+                                            Name = reader["productname"].ToString(),
+                                            Price = Convert.ToDecimal(reader["price"])
                                         },
-                                        Quantity = Convert.ToInt32(reader["Quantity"])
+                                        Quantity = Convert.ToInt32(reader["quantity"])
                                     };
                                     order.Items.Add(item);
                                 }
@@ -149,35 +148,33 @@ namespace MyKioski
                     {
                         try
                         {
-                            // Insert order
+                            // Insert order using ACTUAL column names
                             string orderQuery = @"
-                                INSERT INTO Orders (OrderId, PaymentMethod, OrderDateTime, TotalAmount, OrderStatus)
-                                VALUES (@OrderId, @PaymentMethod, @OrderDateTime, @TotalAmount, @OrderStatus)";
+                                INSERT INTO Orders (OrderID, date, total_price, status)
+                                VALUES (@OrderId, @OrderDateTime, @TotalAmount, @OrderStatus)";
 
                             using (SqlCommand cmd = new SqlCommand(orderQuery, conn, transaction))
                             {
                                 cmd.Parameters.AddWithValue("@OrderId", newOrder.OrderId);
-                                cmd.Parameters.AddWithValue("@PaymentMethod", newOrder.PaymentMethod);
                                 cmd.Parameters.AddWithValue("@OrderDateTime", newOrder.OrderDateTime);
                                 cmd.Parameters.AddWithValue("@TotalAmount", newOrder.TotalAmount);
                                 cmd.Parameters.AddWithValue("@OrderStatus", newOrder.OrderStatus);
                                 cmd.ExecuteNonQuery();
                             }
 
-                            // Insert order items
+                            // Insert order items - FIXED to use actual column names
                             string itemQuery = @"
-                                INSERT INTO OrderItems (OrderId, ItemId, ItemName, ItemPrice, Quantity)
-                                VALUES (@OrderId, @ItemId, @ItemName, @ItemPrice, @Quantity)";
+                                INSERT INTO OrderItems (orderid, productid, quantity, subtotal)
+                                VALUES (@OrderId, @ProductId, @Quantity, @Subtotal)";
 
                             foreach (var item in newOrder.Items)
                             {
                                 using (SqlCommand cmd = new SqlCommand(itemQuery, conn, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("@OrderId", newOrder.OrderId);
-                                    cmd.Parameters.AddWithValue("@ItemId", item.Item.Id);
-                                    cmd.Parameters.AddWithValue("@ItemName", item.Item.Name);
-                                    cmd.Parameters.AddWithValue("@ItemPrice", item.Item.Price);
+                                    cmd.Parameters.AddWithValue("@ProductId", item.Item.Id);
                                     cmd.Parameters.AddWithValue("@Quantity", item.Quantity);
+                                    cmd.Parameters.AddWithValue("@Subtotal", item.Item.Price * item.Quantity);
                                     cmd.ExecuteNonQuery();
                                 }
                             }
@@ -209,16 +206,16 @@ namespace MyKioski
                     {
                         try
                         {
-                            // Delete order items first (foreign key constraint)
-                            string deleteItemsQuery = "DELETE FROM OrderItems WHERE OrderId = @OrderId";
+                            // Delete order items first (foreign key constraint) - FIXED column name
+                            string deleteItemsQuery = "DELETE FROM OrderItems WHERE orderid = @OrderId";
                             using (SqlCommand cmd = new SqlCommand(deleteItemsQuery, conn, transaction))
                             {
                                 cmd.Parameters.AddWithValue("@OrderId", orderId);
                                 cmd.ExecuteNonQuery();
                             }
 
-                            // Delete order
-                            string deleteOrderQuery = "DELETE FROM Orders WHERE OrderId = @OrderId";
+                            // Delete order using ACTUAL column name
+                            string deleteOrderQuery = "DELETE FROM Orders WHERE OrderID = @OrderId";
                             using (SqlCommand cmd = new SqlCommand(deleteOrderQuery, conn, transaction))
                             {
                                 cmd.Parameters.AddWithValue("@OrderId", orderId);
@@ -241,7 +238,7 @@ namespace MyKioski
             }
         }
 
-        // --- Analytics Methods ---
+        // --- Analytics Methods (using ACTUAL column names) ---
         public static decimal GetTotalSales()
         {
             try
@@ -249,7 +246,7 @@ namespace MyKioski
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string query = "SELECT ISNULL(SUM(TotalAmount), 0) FROM Orders";
+                    string query = "SELECT ISNULL(SUM(total_price), 0) FROM Orders";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         return Convert.ToDecimal(cmd.ExecuteScalar());
@@ -272,9 +269,9 @@ namespace MyKioski
                     string query = @"
                         SELECT AVG(DailySales) 
                         FROM (
-                            SELECT CAST(OrderDateTime AS DATE) as OrderDate, SUM(TotalAmount) as DailySales
+                            SELECT CAST(date AS DATE) as OrderDate, SUM(total_price) as DailySales
                             FROM Orders
-                            GROUP BY CAST(OrderDateTime AS DATE)
+                            GROUP BY CAST(date AS DATE)
                         ) as DailySalesData";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -300,9 +297,9 @@ namespace MyKioski
                     string query = @"
                         SELECT AVG(WeeklySales) 
                         FROM (
-                            SELECT DATEPART(WEEK, OrderDateTime) as WeekNum, SUM(TotalAmount) as WeeklySales
+                            SELECT DATEPART(WEEK, date) as WeekNum, SUM(total_price) as WeeklySales
                             FROM Orders
-                            GROUP BY DATEPART(WEEK, OrderDateTime), DATEPART(YEAR, OrderDateTime)
+                            GROUP BY DATEPART(WEEK, date), DATEPART(YEAR, date)
                         ) as WeeklySalesData";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -328,9 +325,9 @@ namespace MyKioski
                     string query = @"
                         SELECT AVG(MonthlySales) 
                         FROM (
-                            SELECT YEAR(OrderDateTime) as OrderYear, MONTH(OrderDateTime) as OrderMonth, SUM(TotalAmount) as MonthlySales
+                            SELECT YEAR(date) as OrderYear, MONTH(date) as OrderMonth, SUM(total_price) as MonthlySales
                             FROM Orders
-                            GROUP BY YEAR(OrderDateTime), MONTH(OrderDateTime)
+                            GROUP BY YEAR(date), MONTH(date)
                         ) as MonthlySalesData";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -350,8 +347,8 @@ namespace MyKioski
         {
             Dictionary<DateTime, decimal> dailySales = new Dictionary<DateTime, decimal>();
 
-            // Initialize with zeros
-            for (int i = 0; i < days; i++)
+            // Initialize with zeros for all days
+            for (int i = days - 1; i >= 0; i--)
             {
                 dailySales[DateTime.Today.AddDays(-i)] = 0;
             }
@@ -362,10 +359,11 @@ namespace MyKioski
                 {
                     conn.Open();
                     string query = @"
-                        SELECT CAST(OrderDateTime AS DATE) as OrderDate, SUM(TotalAmount) as TotalSales
+                        SELECT CAST(date AS DATE) as OrderDate, SUM(total_price) as TotalSales
                         FROM Orders
-                        WHERE OrderDateTime >= @StartDate
-                        GROUP BY CAST(OrderDateTime AS DATE)";
+                        WHERE date >= @StartDate
+                        GROUP BY CAST(date AS DATE)
+                        ORDER BY CAST(date AS DATE)";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
@@ -376,18 +374,21 @@ namespace MyKioski
                             {
                                 DateTime date = Convert.ToDateTime(reader["OrderDate"]);
                                 decimal sales = Convert.ToDecimal(reader["TotalSales"]);
-                                dailySales[date] = sales;
+                                if (dailySales.ContainsKey(date))
+                                {
+                                    dailySales[date] = sales;
+                                }
                             }
                         }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Return initialized dictionary with zeros
+                System.Windows.Forms.MessageBox.Show($"Error loading daily sales: {ex.Message}", "Database Error");
             }
 
-            return dailySales.OrderBy(kvp => kvp.Key).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            return dailySales;
         }
 
         public static Dictionary<string, int> GetSalesByItem()
@@ -400,9 +401,10 @@ namespace MyKioski
                 {
                     conn.Open();
                     string query = @"
-                        SELECT ItemName, SUM(Quantity) as TotalQuantity
-                        FROM OrderItems
-                        GROUP BY ItemName
+                        SELECT p.productname, SUM(oi.quantity) as TotalQuantity
+                        FROM OrderItems oi
+                        INNER JOIN products p ON oi.productid = p.ProductID
+                        GROUP BY p.productname
                         ORDER BY TotalQuantity DESC";
 
                     using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -410,16 +412,16 @@ namespace MyKioski
                     {
                         while (reader.Read())
                         {
-                            string itemName = reader["ItemName"].ToString();
+                            string itemName = reader["productname"].ToString();
                             int quantity = Convert.ToInt32(reader["TotalQuantity"]);
                             salesByItem[itemName] = quantity;
                         }
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                // Return empty dictionary
+                System.Windows.Forms.MessageBox.Show($"Error loading item sales: {ex.Message}", "Database Error");
             }
 
             return salesByItem;
