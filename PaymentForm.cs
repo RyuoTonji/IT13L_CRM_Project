@@ -1,5 +1,4 @@
 ﻿using MyKioski.Models;
-//using QRCoder;
 using System;
 using System.Windows.Forms;
 using System.Net.Http;
@@ -99,7 +98,6 @@ namespace MyKioski
                         .GetString();
 
                     // Generate QR Code
-<<<<<<< HEAD
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
                     QRCodeData qrCodeData = qrGenerator.CreateQrCode(checkoutUrl, QRCodeGenerator.ECCLevel.Q);
                     QRCode qrCode = new QRCode(qrCodeData);
@@ -108,15 +106,11 @@ namespace MyKioski
                     // Show in a new form
                     PaymentQRForm qrForm = new PaymentQRForm();
                     qrForm.pictureBoxQR.Image = qrImage; // Ensure pictureBoxQR is public or has a public property
+                    qrForm.StartPosition = FormStartPosition.CenterScreen;
                     qrForm.ShowDialog();
-=======
-                   // QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                   // QRCodeData qrCodeData = qrGenerator.CreateQrCode(checkoutUrl, QRCodeGenerator.ECCLevel.Q);
-                  //  QRCode qrCode = new QRCode(qrCodeData);
 
-                    // Show in PictureBox (make sure you have a PictureBox named "pictureBoxQR" on your form)
-                  //  pictureBoxQR.Image = qrCode.GetGraphic(5);
->>>>>>> 27b2d7724871c2b7a17b6ff76a5e19d5d96b2ebd
+                    
+
 
                     // Clear the cart
                     Cart.ClearCart();

@@ -93,70 +93,71 @@ namespace MyKioski
         {
             if (Cart.GetItemCount() > 0)
             {
-                // Open the PaymentForm as a dialog window
-                PaymentForm paymentForm = new PaymentForm();
-                DialogResult result = paymentForm.ShowDialog();
+                this.Hide(); // 👈 Hide only the Cart form
 
-                // After the payment form closes, if the payment was successful (OK),
-                // then save to the database and close the cart form
-                if (result == DialogResult.OK)
+                // Find your Menu form (or whatever form should stay open)
+                Form menuForm = Application.OpenForms["MenuForm"]; // change name if your form is called differently
+
+                using (PaymentForm paymentForm = new PaymentForm())
                 {
-                    try
+                    paymentForm.StartPosition = FormStartPosition.CenterParent;
+
+                    // 👇 Show dialog with menuForm as owner instead of 'this'
+                    DialogResult result = menuForm != null
+                        ? paymentForm.ShowDialog(menuForm)
+                        : paymentForm.ShowDialog();
+
+                    if (result == DialogResult.Cancel)
                     {
-                        OrderRepository repo = new OrderRepository();
-
-                        // FIXED: Use 0 for guest orders (non-members)
-                        // The OrderRepository will automatically use the correct guest UserID
-                        int userId = 0; // 0 = Guest order
-
-                        // If you have a logged-in user, replace with:
-                        // int userId = LoggedInUser.UserId; // or however you track logged-in users
-
-                        string status = "Completed";
-                        double totalPrice = CalculateCartTotal();
-
-                        // Insert the main order and get its ID
-                        int orderId = repo.InsertOrder(userId, status, totalPrice);
-
-                        // Insert each cart item
-                        foreach (DataGridViewRow row in dgvCart.Rows)
-                        {
-                            if (row.Tag != null)
-                            {
-                                int productId = Convert.ToInt32(row.Tag);
-                                int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-
-                                string subtotalText = row.Cells["Subtotal"].Value.ToString()
-                                    .Replace("₱", "")
-                                    .Replace(",", "")
-                                    .Trim();
-
-                                double subtotal;
-                                if (!double.TryParse(subtotalText, NumberStyles.Any, CultureInfo.InvariantCulture, out subtotal))
-                                {
-                                    throw new Exception($"Failed to parse subtotal: '{subtotalText}'");
-                                }
-
-                                // Verify product exists before inserting
-                                decimal productPrice = repo.GetProductPrice(productId);
-                                if (productPrice == 0)
-                                {
-                                    throw new Exception($"Product ID {productId} does not exist in the database!");
-                                }
-
-                                repo.InsertOrderItem(orderId, productId, quantity, subtotal);
-                            }
-                        }
-
-                        MessageBox.Show("Order successfully saved to the database!", "Success",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        this.Close(); // close cart after saving
+                        // User canceled payment, show cart again
+                        this.Show();
+                        return;
                     }
-                    catch (Exception ex)
+                    else if (result == DialogResult.OK)
                     {
-                        MessageBox.Show("Error saving order: " + ex.Message, "Database Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        try
+                        {
+                            OrderRepository repo = new OrderRepository();
+                            int userId = 0;
+                            string status = "Completed";
+                            double totalPrice = CalculateCartTotal();
+
+                            int orderId = repo.InsertOrder(userId, status, totalPrice);
+
+                            foreach (DataGridViewRow row in dgvCart.Rows)
+                            {
+                                if (row.Tag != null)
+                                {
+                                    int productId = Convert.ToInt32(row.Tag);
+                                    int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+
+                                    string subtotalText = row.Cells["Subtotal"].Value.ToString()
+                                        .Replace("₱", "")
+                                        .Replace(",", "")
+                                        .Trim();
+
+                                    if (!double.TryParse(subtotalText, out double subtotal))
+                                        throw new Exception($"Failed to parse subtotal: '{subtotalText}'");
+
+                                    decimal productPrice = repo.GetProductPrice(productId);
+                                    if (productPrice == 0)
+                                        throw new Exception($"Product ID {productId} does not exist in the database!");
+
+                                    repo.InsertOrderItem(orderId, productId, quantity, subtotal);
+                                }
+                            }
+
+                            MessageBox.Show("Order successfully saved to the database!", "Success",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            this.Close(); // ✅ Close Cart after success
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error saving order: " + ex.Message, "Database Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            this.Show(); // show cart again if something went wrong
+                        }
                     }
                 }
             }
@@ -166,6 +167,8 @@ namespace MyKioski
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+
 
         // Helper method to compute total
         private double CalculateCartTotal()
