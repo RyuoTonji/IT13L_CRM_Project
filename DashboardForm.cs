@@ -6,6 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace MyKioski
 {
@@ -86,10 +88,10 @@ namespace MyKioski
             dgvOrders.Rows.Clear();
             dgvOrders.Columns.Clear();
             dgvOrders.Columns.Add("colOrderId", "Order ID");
-            dgvOrders.Columns.Add("colPaymentMethod", "Payment");
-            dgvOrders.Columns.Add("colDate", "Date");
-            dgvOrders.Columns.Add("colTotal", "Total");
-            dgvOrders.Columns.Add("colStatus", "Status");
+            dgvOrders.Columns.Add("colpaymentMethod", "Payment");
+            dgvOrders.Columns.Add("coldate", "Date");
+            dgvOrders.Columns.Add("coltotal_price", "Total");
+            dgvOrders.Columns.Add("colstatus", "Status");
 
             DataGridViewButtonColumn viewButton = new DataGridViewButtonColumn
             {
@@ -110,16 +112,29 @@ namespace MyKioski
             dgvOrders.Columns.Add(viewButton);
             dgvOrders.Columns.Add(deleteButton);
 
-            List<Order> allOrders = OrderService.GetAllOrders();
-            foreach (var order in allOrders.AsEnumerable().Reverse())
+            try
             {
-                dgvOrders.Rows.Add(
-                    order.OrderId,
-                    order.PaymentMethod,
-                    order.OrderDateTime.ToShortDateString(),
-                    $"₱{order.TotalAmount:F2}",
-                    order.OrderStatus
-                );
+                List<Order> allOrders = OrderService.GetAllOrders();
+
+                if (allOrders.Count == 0)
+                {
+                    MessageBox.Show("No orders found in database. Please create some orders first.", "No Data");
+                }
+
+                foreach (var order in allOrders.AsEnumerable().Reverse())
+                {
+                    dgvOrders.Rows.Add(
+                        order.OrderId,
+                        order.PaymentMethod,
+                        order.OrderDateTime.ToShortDateString(),
+                        $"₱{order.TotalAmount:F2}",
+                        order.OrderStatus
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading orders: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Database Error");
             }
 
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -138,7 +153,7 @@ namespace MyKioski
 
             if (dgvOrders.Columns[e.ColumnIndex].Name == "colView")
             {
-                Order o = OrderService.GetAllOrders().FirstOrDefault(ord => ord.OrderId == orderId);
+                Order o = OrderService.GetOrderWithItems(orderId);
                 if (o != null)
                 {
                     string details = $"Order ID: {o.OrderId}\n\n";
