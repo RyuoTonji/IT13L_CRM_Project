@@ -11,7 +11,10 @@ namespace MyKioski
     {
         private List<MenuItem> allMenuItems;
 
-        public MenuForm() { InitializeComponent(); }
+        public MenuForm() { 
+            InitializeComponent();
+            this.KeyPreview = true;
+        }
 
         private void MenuForm_Load(object sender, EventArgs e)
         {
@@ -73,16 +76,29 @@ namespace MyKioski
             // Handle Ctrl+A for admin dashboard
             if (keyData == (Keys.Control | Keys.A))
             {
-                DashboardForm dashboard = new DashboardForm();
-                dashboard.FormBorderStyle = FormBorderStyle.None;
-                dashboard.WindowState = FormWindowState.Maximized;
-                dashboard.TopMost = true;
-                dashboard.Show();
-                this.Hide();
+                // Check if Dashboard already exists
+                DashboardForm existingDashboard = Application.OpenForms.OfType<DashboardForm>().FirstOrDefault();
+
+                if (existingDashboard != null)
+                {
+                    existingDashboard.WindowState = FormWindowState.Maximized;
+                    existingDashboard.Show();
+                    existingDashboard.BringToFront();
+                    this.Hide();
+                }
+                else
+                {
+                    DashboardForm dashboard = new DashboardForm();
+                    dashboard.FormBorderStyle = FormBorderStyle.None;
+                    dashboard.WindowState = FormWindowState.Maximized;
+                    dashboard.TopMost = true;
+                    dashboard.Show();
+                    this.Hide();
+                }
+
                 return true;
             }
 
-            // Normal key handling for other keys
             return base.ProcessCmdKey(ref msg, keyData);
         }
 

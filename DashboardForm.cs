@@ -11,7 +11,7 @@ namespace MyKioski
 {
     public partial class DashboardForm : Form
     {
-        private List<Panel> contentPanels = new List<Panel>();
+        private List<Panel> contentPanels; // Remove = new List<Panel>() from here
 
         // store mock feedback list (in-memory)
         private List<MockFeedback> mockFeedbackList = new List<MockFeedback>();
@@ -19,6 +19,8 @@ namespace MyKioski
         public DashboardForm()
         {
             InitializeComponent();
+            contentPanels = new List<Panel>();
+            this.KeyPreview = true;
         }
 
         private void DashboardForm_Load(object sender, EventArgs e)
@@ -27,29 +29,55 @@ namespace MyKioski
             if (File.Exists(logoPath))
                 picDashboardLogo.Image = Image.FromFile(logoPath);
 
+            // Clear and re-add to be safe
+            contentPanels.Clear();
             contentPanels.Add(panelFoodOrders);
             contentPanels.Add(panelAnalytics);
             contentPanels.Add(panelCustomerAdmin);
-            //contentPanels.Add(panel3rdSetting);
 
-            // nav button handlers - customer admin will load feedback when clicked
+            // Set up all panels
+            foreach (var panel in contentPanels)
+            {
+                if (panel != null)
+                {
+                    panel.Dock = DockStyle.Fill;
+                    panel.Visible = false;
+                }
+            }
+
+            // nav button handlers
             btnNavFoodOrders.Click += (s, ev) => ShowPanel(panelFoodOrders);
-            btnNavAnalytics.Click += (s, ev) => { ShowPanel(panelAnalytics); LoadAnalytics(); };
+            btnNavAnalytics.Click += (s, ev) =>
+            {
+                ShowPanel(panelAnalytics);
+                LoadAnalytics(); // Load analytics only when viewing the panel
+            };
             btnNavCustomerAdmin.Click += (s, ev) =>
             {
                 ShowPanel(panelCustomerAdmin);
-                LoadCustomerFeedback(); // load only when clicking Customer Feedback
+                LoadCustomerFeedback();
             };
 
             LoadOrders();
-            LoadAnalytics();
+
             ShowPanel(panelFoodOrders);
         }
 
         private void ShowPanel(Panel panelToShow)
         {
+            // Hide all panels
             foreach (var panel in contentPanels)
-                panel.Visible = (panel == panelToShow);
+            {
+                if (panel != null)
+                    panel.Visible = false;
+            }
+
+            // Show the selected panel
+            if (panelToShow != null)
+            {
+                panelToShow.Visible = true;
+                panelToShow.BringToFront();
+            }
         }
 
         #region Food Orders
@@ -147,50 +175,132 @@ namespace MyKioski
             lblAvgWeeklyValue.Text = $"₱{OrderService.GetAverageWeeklySales():F2}";
             lblAvgMonthlyValue.Text = $"₱{OrderService.GetAverageMonthlySales():F2}";
 
-            PopulateDailySalesChart();
-            PopulateItemsChart();
+            // Only populate charts if they exist
+            if (chartDailySales != null)
+                PopulateDailySalesChart();
+
+            if (chartCategorySales != null)
+                PopulateItemsChart();
         }
 
         private void PopulateDailySalesChart()
         {
+            // Check if chart exists
+            if (chartDailySales == null)
+            {
+                MessageBox.Show("Daily Sales Chart control not found in the form!");
+                return;
+            }
+
+            // Clear everything
             chartDailySales.Series.Clear();
             chartDailySales.Titles.Clear();
-            chartDailySales.Titles.Add("Daily Sales (Last 7 Days)");
+            chartDailySales.ChartAreas.Clear();
 
+            // Add ChartArea (CRITICAL - charts need this to display)
+            ChartArea chartArea = new ChartArea("MainArea");
+            chartArea.AxisX.MajorGrid.Enabled = false;
+            chartArea.AxisY.MajorGrid.LineColor = Color.LightGray;
+            chartArea.BackColor = Color.White;
+            chartDailySales.ChartAreas.Add(chartArea);
+
+            // Add title
+            Title title = new Title("Daily Sales (Last 7 Days)");
+            title.Font = new Font("Arial", 12, FontStyle.Bold);
+            chartDailySales.Titles.Add(title);
+
+            // Create series
             Series s = new Series("Daily Sales")
             {
                 ChartType = SeriesChartType.Line,
                 Color = Color.DodgerBlue,
-                BorderWidth = 3
+                BorderWidth = 3,
+                ChartArea = "MainArea",
+                IsValueShownAsLabel = true
             };
 
+            // Get data
             var data = OrderService.GetDailySalesForLastDays(7);
-            foreach (var entry in data)
-                s.Points.AddXY(entry.Key.ToString("ddd"), entry.Value);
+
+            // Check if we have data
+            if (data == null || data.Count == 0)
+            {
+                // Add sample data to show the chart is working
+                s.Points.AddXY("Mon", 0);
+                s.Points.AddXY("Tue", 0);
+                s.Points.AddXY("Wed", 0);
+                s.Points.AddXY("Thu", 0);
+                s.Points.AddXY("Fri", 0);
+                s.Points.AddXY("Sat", 0);
+                s.Points.AddXY("Sun", 0);
+            }
+            else
+            {
+                foreach (var entry in data)
+                    s.Points.AddXY(entry.Key.ToString("ddd"), entry.Value);
+            }
 
             chartDailySales.Series.Add(s);
+
+            // Force refresh
+            chartDailySales.Invalidate();
+            chartDailySales.Update();
         }
 
         private void PopulateItemsChart()
         {
+            // Check if chart exists
+            if (chartCategorySales == null)
+            {
+                MessageBox.Show("Category Sales Chart control not found in the form!");
+                return;
+            }
+
+            // Clear everything
             chartCategorySales.Series.Clear();
             chartCategorySales.Titles.Clear();
+            chartCategorySales.ChartAreas.Clear();
+
+            // Add ChartArea (CRITICAL - charts need this to display)
+            ChartArea chartArea = new ChartArea("MainArea");
+            chartArea.AxisX.MajorGrid.Enabled = false;
+            chartArea.AxisY.MajorGrid.LineColor = Color.LightGray;
+            chartCategorySales.ChartAreas.Add(chartArea);
+
+            // Add title
             chartCategorySales.Titles.Add("Top Selling Items");
 
+            // Create series
             Series s = new Series("Items Sold")
             {
                 ChartType = SeriesChartType.Bar,
-                IsValueShownAsLabel = true
+                IsValueShownAsLabel = true,
+                ChartArea = "MainArea",
+                Color = Color.Green
             };
 
+            // Get data
             var data = OrderService.GetSalesByItem()
                                    .OrderByDescending(kvp => kvp.Value)
-                                   .Take(5);
+                                   .Take(5)
+                                   .ToList();
 
-            foreach (var entry in data)
-                s.Points.AddXY(entry.Key, entry.Value);
+            // Check if we have data
+            if (data == null || data.Count == 0)
+            {
+                // Add dummy point to show empty chart
+                s.Points.AddXY("No Data", 0);
+            }
+            else
+            {
+                foreach (var entry in data)
+                    s.Points.AddXY(entry.Key, entry.Value);
+            }
 
             chartCategorySales.Series.Add(s);
+
+            // Force refresh
+            chartCategorySales.Invalidate();
         }
         #endregion
 
@@ -315,12 +425,28 @@ namespace MyKioski
         {
             if (keyData == (Keys.Control | Keys.D))
             {
-                MenuForm menu = new MenuForm();
-                menu.FormBorderStyle = FormBorderStyle.None;
-                menu.WindowState = FormWindowState.Maximized;
-                menu.TopMost = true;
-                menu.Show();
-                this.Hide();
+                // Find if MenuForm is already open and hidden
+                MenuForm existingMenu = Application.OpenForms.OfType<MenuForm>().FirstOrDefault();
+
+                if (existingMenu != null)
+                {
+                    // If MenuForm exists, just show it
+                    existingMenu.WindowState = FormWindowState.Maximized;
+                    existingMenu.Show();
+                    existingMenu.BringToFront();
+                    this.Hide();
+                }
+                else
+                {
+                    // Create new MenuForm if it doesn't exist
+                    MenuForm menu = new MenuForm();
+                    menu.FormBorderStyle = FormBorderStyle.None;
+                    menu.WindowState = FormWindowState.Maximized;
+                    menu.TopMost = true;
+                    menu.Show();
+                    this.Hide();
+                }
+
                 return true;
             }
 
