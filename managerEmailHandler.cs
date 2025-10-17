@@ -58,5 +58,10 @@ namespace MyKioski
         {
             MessageBox.Show("Your feedback has been saved as a draft.", "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }
