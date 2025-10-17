@@ -30,6 +30,7 @@
             lblTitle.BackColor = Color.DarkRed;
             lblTitle.Dock = DockStyle.Top;
             lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point);
+            lblTitle.ForeColor = SystemColors.ControlLightLight;
             lblTitle.Location = new Point(0, 0);
             lblTitle.Margin = new Padding(4, 0, 4, 0);
             lblTitle.Name = "lblTitle";
@@ -59,7 +60,6 @@
             // 
             // btnTakeOut
             // 
-
             btnTakeOut.BackgroundImageLayout = ImageLayout.Stretch;
             btnTakeOut.Dock = DockStyle.Fill;
             btnTakeOut.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
@@ -68,7 +68,6 @@
             btnTakeOut.Name = "btnTakeOut";
             btnTakeOut.Size = new Size(634, 507);
             btnTakeOut.TabIndex = 1;
-            btnTakeOut.Text = "Take Out";
             btnTakeOut.UseVisualStyleBackColor = true;
             // 
             // btnDineIn
@@ -81,7 +80,6 @@
             btnDineIn.Name = "btnDineIn";
             btnDineIn.Size = new Size(633, 507);
             btnDineIn.TabIndex = 0;
-            btnDineIn.Text = "Dine In";
             btnDineIn.UseVisualStyleBackColor = true;
             // 
             // OrderTypeForm
