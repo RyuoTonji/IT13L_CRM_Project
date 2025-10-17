@@ -14,7 +14,6 @@ namespace MyKioski
     public partial class DashboardForm : Form
     {
         private List<Panel> contentPanels;
-        private List<MockFeedback> mockFeedbackList = new List<MockFeedback>();
 
         public DashboardForm()
         {
@@ -357,6 +356,8 @@ namespace MyKioski
             dgvCustomerFeedback.Rows.Clear();
             dgvCustomerFeedback.Columns.Clear();
 
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colId", HeaderText = "ID" });
+            dgvCustomerFeedback.Columns["colId"].Visible = false; // hide ID column
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colEmail", HeaderText = "Email ID Number" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colType", HeaderText = "Feedback Type" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colDate", HeaderText = "Date" });
@@ -398,6 +399,7 @@ namespace MyKioski
             foreach (DataRow row in feedbackTable.Rows)
             {
                 dgvCustomerFeedback.Rows.Add(
+                    row["FeedbackID"],
                     row["Email"],
                     row["Type"],
                     row["Date"],
@@ -430,13 +432,41 @@ namespace MyKioski
             }
             else if (colName == "colDelete")
             {
+                var idValue = dgvCustomerFeedback.Rows[e.RowIndex].Cells["colId"].Value;
                 var email = dgvCustomerFeedback.Rows[e.RowIndex].Cells["colEmail"].Value?.ToString();
-                var result = MessageBox.Show($"Are you sure you want to delete feedback from {email}?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (idValue == null)
+                {
+                    MessageBox.Show("Cannot delete: Feedback ID not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int feedbackId = Convert.ToInt32(idValue);
+
+                var result = MessageBox.Show(
+                    $"Are you sure you want to delete feedback from {email}?",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
                 if (result == DialogResult.Yes)
                 {
-                    dgvCustomerFeedback.Rows.RemoveAt(e.RowIndex);
+                    try
+                    {
+                        Database.DeleteFeedback(feedbackId);
+                        dgvCustomerFeedback.Rows.RemoveAt(e.RowIndex);
+
+                        MessageBox.Show("Feedback deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error deleting feedback: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+
+
         }
         #endregion
 

@@ -78,6 +78,7 @@ namespace MyKioski
 
                 string query = @"
             SELECT 
+                f.FeedbackID,
                 u.Email,
                 f.Concern AS Type,
                 CONVERT(varchar(10), f.SubmittedAt, 101) AS Date,
@@ -96,6 +97,22 @@ namespace MyKioski
             }
 
             return dt;
+        }
+
+        public static void DeleteFeedback(int feedbackId)
+        {
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                string query = "DELETE FROM Feedback WHERE FeedbackID = @FeedbackID";
+
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@FeedbackID", feedbackId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
 
