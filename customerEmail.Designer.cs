@@ -29,32 +29,27 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            textBox3 = new TextBox();
-
+            emailBox = new TextBox();
             label2 = new Label();
-            textBox2 = new TextBox();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
+            feedbackBox = new TextBox();
+            sendBtn = new Button();
             bindingSource1 = new BindingSource(components);
-            label4 = new Label();
-            
             label5 = new Label();
-            button8 = new Button();
-            button9 = new Button();
-            button10 = new Button();
+            othersBtn = new Button();
+            complaintBtn = new Button();
+            inquiryBtn = new Button();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
-            // textBox3
+            // emailBox
             // 
-            textBox3.Location = new Point(26, 51);
-            textBox3.Multiline = true;
-            textBox3.Name = "textBox3";
-            textBox3.PlaceholderText = "Enter email address here";
-            textBox3.Size = new Size(459, 33);
-            textBox3.TabIndex = 2; 
+            emailBox.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            emailBox.Location = new Point(26, 51);
+            emailBox.Multiline = true;
+            emailBox.Name = "emailBox";
+            emailBox.PlaceholderText = "Enter email address here";
+            emailBox.Size = new Size(459, 33);
+            emailBox.TabIndex = 2;
             // 
             // label2
             // 
@@ -66,100 +61,63 @@
             label2.Text = "From:";
             label2.TextAlign = ContentAlignment.TopCenter;
             // 
-            // textBox2
+            // feedbackBox
             // 
-            textBox2.Location = new Point(26, 108);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "Enter message here";
-            textBox2.Size = new Size(459, 287);
-            textBox2.TabIndex = 9;
+            feedbackBox.Location = new Point(26, 108);
+            feedbackBox.Multiline = true;
+            feedbackBox.Name = "feedbackBox";
+            feedbackBox.PlaceholderText = "Enter message here";
+            feedbackBox.Size = new Size(459, 287);
+            feedbackBox.TabIndex = 9;
             // 
-            // button4
+            // sendBtn
             // 
-            button4.Location = new Point(664, 390);
-            button4.Name = "button4";
-            button4.Size = new Size(141, 49);
-            button4.TabIndex = 10;
-            button4.Text = "Save as Draft";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Location = new Point(821, 390);
-            button5.Name = "button5";
-            button5.Size = new Size(141, 49);
-            button5.TabIndex = 11;
-            button5.Text = "Send";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
-            // 
-            // button6
-            // 
-            button6.Location = new Point(503, 131);
-            button6.Name = "button6";
-            button6.Size = new Size(141, 49);
-            button6.TabIndex = 12;
-            button6.Text = "Dine In";
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
-            // 
-            // button7
-            // 
-            button7.Location = new Point(664, 131);
-            button7.Name = "button7";
-            button7.Size = new Size(141, 49);
-            button7.TabIndex = 13;
-            button7.Text = "Take Out";
-            button7.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(503, 108);
-            label4.Name = "label4";
-            label4.Size = new Size(159, 15);
-            label4.TabIndex = 15;
-            label4.Text = "Customer Service Experience";
-            label4.Click += label4_Click;
+            sendBtn.Location = new Point(821, 390);
+            sendBtn.Name = "sendBtn";
+            sendBtn.Size = new Size(141, 49);
+            sendBtn.TabIndex = 11;
+            sendBtn.Text = "Send";
+            sendBtn.UseVisualStyleBackColor = true;
+            sendBtn.Click += Send_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Location = new Point(503, 200);
             label5.Name = "label5";
-            label5.Size = new Size(93, 15);
+            label5.Size = new Size(94, 15);
             label5.TabIndex = 19;
             label5.Text = "Type of Concern";
             // 
-            // button8
+            // othersBtn
             // 
-            button8.Location = new Point(821, 226);
-            button8.Name = "button8";
-            button8.Size = new Size(141, 49);
-            button8.TabIndex = 18;
-            button8.Text = "Others";
-            button8.UseVisualStyleBackColor = true;
+            othersBtn.Location = new Point(821, 226);
+            othersBtn.Name = "othersBtn";
+            othersBtn.Size = new Size(141, 49);
+            othersBtn.TabIndex = 18;
+            othersBtn.Text = "Others";
+            othersBtn.UseVisualStyleBackColor = true;
+            othersBtn.Click += othersBtn_Click;
             // 
-            // button9
+            // complaintBtn
             // 
-            button9.Location = new Point(664, 226);
-            button9.Name = "button9";
-            button9.Size = new Size(141, 49);
-            button9.TabIndex = 17;
-            button9.Text = "Complaint";
-            button9.UseVisualStyleBackColor = true;
-            button9.Click += button9_Click;
+            complaintBtn.Location = new Point(664, 226);
+            complaintBtn.Name = "complaintBtn";
+            complaintBtn.Size = new Size(141, 49);
+            complaintBtn.TabIndex = 17;
+            complaintBtn.Text = "Complaint";
+            complaintBtn.UseVisualStyleBackColor = true;
+            complaintBtn.Click += complaintBtn_Click;
             // 
-            // button10
+            // inquiryBtn
             // 
-            button10.Location = new Point(503, 226);
-            button10.Name = "button10";
-            button10.Size = new Size(141, 49);
-            button10.TabIndex = 16;
-            button10.Text = "Inquiry";
-            button10.UseVisualStyleBackColor = true;
-            button10.Click += button10_Click;
+            inquiryBtn.Location = new Point(503, 226);
+            inquiryBtn.Name = "inquiryBtn";
+            inquiryBtn.Size = new Size(141, 49);
+            inquiryBtn.TabIndex = 16;
+            inquiryBtn.Text = "Inquiry";
+            inquiryBtn.UseVisualStyleBackColor = true;
+            inquiryBtn.Click += inquiryBtn_Click;
             // 
             // customerEmail
             // 
@@ -167,18 +125,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(983, 463);
             Controls.Add(label5);
-            Controls.Add(button8);
-            Controls.Add(button9);
-            Controls.Add(button10);
-            Controls.Add(label4);
-            Controls.Add(button7);
-            Controls.Add(button6);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(textBox2);
+            Controls.Add(othersBtn);
+            Controls.Add(complaintBtn);
+            Controls.Add(inquiryBtn);
+            Controls.Add(sendBtn);
+            Controls.Add(feedbackBox);
             Controls.Add(label2);
-            Controls.Add(textBox3);
-
+            Controls.Add(emailBox);
             Name = "customerEmail";
             Text = "Feedback ";
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
@@ -187,19 +140,15 @@
         }
 
         #endregion
-        private TextBox textBox3;
+        private TextBox emailBox;
         private Label label2;
-        private TextBox textBox2;
-        private Button button4;
-        private Button button5;
-        private Button button6;
-        private Button button7;
+        private TextBox feedbackBox;
+        private Button sendBtn;
         private BindingSource bindingSource1;
-        private Label label4;
 
         private Label label5;
-        private Button button8;
-        private Button button9;
-        private Button button10;
+        private Button othersBtn;
+        private Button complaintBtn;
+        private Button inquiryBtn;
     }
 }

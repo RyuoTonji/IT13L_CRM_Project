@@ -352,12 +352,7 @@ namespace MyKioski
         #region Customer Feedback
         private void LoadCustomerFeedback()
         {
-            mockFeedbackList = new List<MockFeedback>
-            {
-                new MockFeedback { Email = "maria@gmail.com", Type = "Service Quality", Date = DateTime.Now.Date.AddDays(-0).ToShortDateString(), Time = "10:30 AM", Priority = "High", Status = "Pending" },
-                new MockFeedback { Email = "john@yahoo.com", Type = "Food Taste", Date = DateTime.Now.Date.AddDays(-1).ToShortDateString(), Time = "12:00 PM", Priority = "Medium", Status = "Reviewed" },
-                new MockFeedback { Email = "anne@gmail.com", Type = "Cleanliness", Date = DateTime.Now.Date.AddDays(-2).ToShortDateString(), Time = "09:45 AM", Priority = "Low", Status = "Resolved" }
-            };
+            DataTable feedbackTable = Database.GetFeedbackList();
 
             dgvCustomerFeedback.Rows.Clear();
             dgvCustomerFeedback.Columns.Clear();
@@ -366,7 +361,6 @@ namespace MyKioski
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colType", HeaderText = "Feedback Type" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colDate", HeaderText = "Date" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colTime", HeaderText = "Time" });
-            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colPriority", HeaderText = "Priority Level" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colStatus", HeaderText = "Feedback Status" });
 
             var editCol = new DataGridViewImageColumn()
@@ -401,15 +395,14 @@ namespace MyKioski
             dgvCustomerFeedback.Columns.Add(editCol);
             dgvCustomerFeedback.Columns.Add(deleteCol);
 
-            foreach (var f in mockFeedbackList)
+            foreach (DataRow row in feedbackTable.Rows)
             {
                 dgvCustomerFeedback.Rows.Add(
-                    f.Email,
-                    f.Type,
-                    f.Date,
-                    f.Time,
-                    f.Priority,
-                    f.Status,
+                    row["Email"],
+                    row["Type"],
+                    row["Date"],
+                    row["Time"],
+                    row["Status"],
                     null,
                     null
                 );
@@ -422,6 +415,7 @@ namespace MyKioski
             dgvCustomerFeedback.CellContentClick -= dgvCustomerFeedback_CellContentClick;
             dgvCustomerFeedback.CellContentClick += dgvCustomerFeedback_CellContentClick;
         }
+
 
         private void dgvCustomerFeedback_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -479,14 +473,5 @@ namespace MyKioski
         {
         }
 
-        private class MockFeedback
-        {
-            public string Email { get; set; }
-            public string Type { get; set; }
-            public string Date { get; set; }
-            public string Time { get; set; }
-            public string Priority { get; set; }
-            public string Status { get; set; }
-        }
     }
 }
