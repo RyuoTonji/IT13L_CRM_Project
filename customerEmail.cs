@@ -4,61 +4,74 @@ namespace MyKioski
 {
     public partial class customerEmail : Form
     {
+        private String concernType;
         public customerEmail()
         {
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        // Inquiry button click
+        private void inquiryBtn_Click(object sender, EventArgs e)
         {
-
+            ResetButtonColors();                          // reset others
+            inquiryBtn.BackColor = Color.LightBlue;       // highlight this
+            concernType = "Inquiry";
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        // Complaint button click
+        private void complaintBtn_Click(object sender, EventArgs e)
         {
-
+            ResetButtonColors();
+            complaintBtn.BackColor = Color.LightBlue;
+            concernType= "Complaint";
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        // Others button click
+        private void othersBtn_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Your feedback has been sent! Thank you.", "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ResetButtonColors();
+            othersBtn.BackColor = Color.LightBlue;
+            concernType= "Others";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ResetButtonColors()
         {
-
+            inquiryBtn.BackColor = SystemColors.Control;   // default button color
+            complaintBtn.BackColor = SystemColors.Control;
+            othersBtn.BackColor = SystemColors.Control;
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void Send_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(emailBox.Text) ||
+                string.IsNullOrWhiteSpace(feedbackBox.Text) ||
+                string.IsNullOrEmpty(concernType))
+            {
+                MessageBox.Show("Please fill in all fields and select a type of concern.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            try
+            {
+                Database.InsertFeedback(emailBox.Text, feedbackBox.Text, concernType);
+
+                MessageBox.Show("Your feedback has been sent! Thank you.",
+                                "Confirmation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Reset UI
+                emailBox.Clear();
+                feedbackBox.Clear();
+                ResetButtonColors();
+                concernType = "";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message,
+                                "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //string email = emailTextBox.Text;
-          //  string concern = concernTextBox.Text;
-            MessageBox.Show("Your feedback has been saved as a draft.", "Draft Saved", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
     }
 }
+     

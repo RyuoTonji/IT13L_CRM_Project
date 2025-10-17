@@ -6,15 +6,14 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace MyKioski
 {
     public partial class DashboardForm : Form
     {
-        private List<Panel> contentPanels; // Remove = new List<Panel>() from here
-
-        // store mock feedback list (in-memory)
-        private List<MockFeedback> mockFeedbackList = new List<MockFeedback>();
+        private List<Panel> contentPanels;
 
         public DashboardForm()
         {
@@ -29,13 +28,11 @@ namespace MyKioski
             if (File.Exists(logoPath))
                 picDashboardLogo.Image = Image.FromFile(logoPath);
 
-            // Clear and re-add to be safe
             contentPanels.Clear();
             contentPanels.Add(panelFoodOrders);
             contentPanels.Add(panelAnalytics);
             contentPanels.Add(panelCustomerAdmin);
 
-            // Set up all panels
             foreach (var panel in contentPanels)
             {
                 if (panel != null)
@@ -45,12 +42,11 @@ namespace MyKioski
                 }
             }
 
-            // nav button handlers
             btnNavFoodOrders.Click += (s, ev) => ShowPanel(panelFoodOrders);
             btnNavAnalytics.Click += (s, ev) =>
             {
                 ShowPanel(panelAnalytics);
-                LoadAnalytics(); // Load analytics only when viewing the panel
+                LoadAnalytics();
             };
             btnNavCustomerAdmin.Click += (s, ev) =>
             {
@@ -59,20 +55,17 @@ namespace MyKioski
             };
 
             LoadOrders();
-
             ShowPanel(panelFoodOrders);
         }
 
         private void ShowPanel(Panel panelToShow)
         {
-            // Hide all panels
             foreach (var panel in contentPanels)
             {
                 if (panel != null)
                     panel.Visible = false;
             }
 
-            // Show the selected panel
             if (panelToShow != null)
             {
                 panelToShow.Visible = true;
@@ -86,10 +79,10 @@ namespace MyKioski
             dgvOrders.Rows.Clear();
             dgvOrders.Columns.Clear();
             dgvOrders.Columns.Add("colOrderId", "Order ID");
-            dgvOrders.Columns.Add("colPaymentMethod", "Payment");
-            dgvOrders.Columns.Add("colDate", "Date");
-            dgvOrders.Columns.Add("colTotal", "Total");
-            dgvOrders.Columns.Add("colStatus", "Status");
+            dgvOrders.Columns.Add("colpaymentMethod", "Payment");
+            dgvOrders.Columns.Add("coldate", "Date");
+            dgvOrders.Columns.Add("coltotal_price", "Total");
+            dgvOrders.Columns.Add("colstatus", "Status");
 
             DataGridViewButtonColumn viewButton = new DataGridViewButtonColumn
             {
@@ -110,16 +103,29 @@ namespace MyKioski
             dgvOrders.Columns.Add(viewButton);
             dgvOrders.Columns.Add(deleteButton);
 
-            List<Order> allOrders = OrderService.GetAllOrders();
-            foreach (var order in allOrders.AsEnumerable().Reverse())
+            try
             {
-                dgvOrders.Rows.Add(
-                    order.OrderId,
-                    order.PaymentMethod,
-                    order.OrderDateTime.ToShortDateString(),
-                    $"₱{order.TotalAmount:F2}",
-                    order.OrderStatus
-                );
+                List<Order> allOrders = OrderService.GetAllOrders();
+
+                if (allOrders.Count == 0)
+                {
+                    MessageBox.Show("No orders found in database. Please create some orders first.", "No Data");
+                }
+
+                foreach (var order in allOrders.AsEnumerable().Reverse())
+                {
+                    dgvOrders.Rows.Add(
+                        order.OrderId,
+                        order.PaymentMethod,
+                        order.OrderDateTime.ToShortDateString(),
+                        $"₱{order.TotalAmount:F2}",
+                        order.OrderStatus
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading orders: {ex.Message}\n\nStack Trace: {ex.StackTrace}", "Database Error");
             }
 
             dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -138,7 +144,7 @@ namespace MyKioski
 
             if (dgvOrders.Columns[e.ColumnIndex].Name == "colView")
             {
-                Order o = OrderService.GetAllOrders().FirstOrDefault(ord => ord.OrderId == orderId);
+                Order o = OrderService.GetOrderWithItems(orderId);
                 if (o != null)
                 {
                     string details = $"Order ID: {o.OrderId}\n\n";
@@ -168,166 +174,196 @@ namespace MyKioski
         #endregion
 
         #region Analytics
+        private void InitializeChartsIfNeeded()
+        {
+            // Clear existing charts if any
+            var existingCharts = panelAnalytics.Controls.OfType<Chart>().ToList();
+            foreach (var chart in existingCharts)
+            {
+                panelAnalytics.Controls.Remove(chart);
+                chart.Dispose();
+            }
+
+            // Create Daily Sales Chart
+            chartDailySales = new Chart();
+            chartDailySales.Name = "chartDailySales";
+            chartDailySales.Size = new Size(600, 300);
+            chartDailySales.Location = new Point(450, 70);
+            chartDailySales.BackColor = Color.White;
+            chartDailySales.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panelAnalytics.Controls.Add(chartDailySales);
+            chartDailySales.BringToFront();
+
+            // Create Category Sales Chart
+            chartCategorySales = new Chart();
+            chartCategorySales.Name = "chartCategorySales";
+            chartCategorySales.Size = new Size(600, 300);
+            chartCategorySales.Location = new Point(450, 390);
+            chartCategorySales.BackColor = Color.White;
+            chartCategorySales.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            panelAnalytics.Controls.Add(chartCategorySales);
+            chartCategorySales.BringToFront();
+        }
+
         private void LoadAnalytics()
         {
+            InitializeChartsIfNeeded();
+
             lblTotalSalesValue.Text = $"₱{OrderService.GetTotalSales():F2}";
             lblAvgDailyValue.Text = $"₱{OrderService.GetAverageDailySales():F2}";
             lblAvgWeeklyValue.Text = $"₱{OrderService.GetAverageWeeklySales():F2}";
             lblAvgMonthlyValue.Text = $"₱{OrderService.GetAverageMonthlySales():F2}";
 
-            // Only populate charts if they exist
             if (chartDailySales != null)
                 PopulateDailySalesChart();
 
             if (chartCategorySales != null)
                 PopulateItemsChart();
+
+            panelAnalytics.Refresh();
         }
 
         private void PopulateDailySalesChart()
         {
-            // Check if chart exists
-            if (chartDailySales == null)
-            {
-                MessageBox.Show("Daily Sales Chart control not found in the form!");
-                return;
-            }
+            if (chartDailySales == null) return;
 
-            // Clear everything
             chartDailySales.Series.Clear();
             chartDailySales.Titles.Clear();
             chartDailySales.ChartAreas.Clear();
+            chartDailySales.Annotations.Clear();
 
-            // Add ChartArea (CRITICAL - charts need this to display)
             ChartArea chartArea = new ChartArea("MainArea");
             chartArea.AxisX.MajorGrid.Enabled = false;
             chartArea.AxisY.MajorGrid.LineColor = Color.LightGray;
+            chartArea.AxisY.LabelStyle.Format = "₱{0}";
             chartArea.BackColor = Color.White;
             chartDailySales.ChartAreas.Add(chartArea);
 
-            // Add title
             Title title = new Title("Daily Sales (Last 7 Days)");
-            title.Font = new Font("Arial", 12, FontStyle.Bold);
+            title.Font = new Font("Arial", 14, FontStyle.Bold);
             chartDailySales.Titles.Add(title);
 
-            // Create series
-            Series s = new Series("Daily Sales")
+            Series series = new Series("Daily Sales")
             {
-                ChartType = SeriesChartType.Line,
-                Color = Color.DodgerBlue,
-                BorderWidth = 3,
-                ChartArea = "MainArea",
-                IsValueShownAsLabel = true
+                ChartType = SeriesChartType.Column,
+                Color = Color.FromArgb(54, 162, 235),
+                BorderWidth = 2,
+                IsValueShownAsLabel = true,
+                ChartArea = "MainArea"
             };
 
-            // Get data
-            var data = OrderService.GetDailySalesForLastDays(7);
+            var salesData = OrderService.GetDailySalesForLastDays(7);
+            bool hasData = false;
 
-            // Check if we have data
-            if (data == null || data.Count == 0)
+            if (salesData != null && salesData.Count > 0)
             {
-                // Add sample data to show the chart is working
-                s.Points.AddXY("Mon", 0);
-                s.Points.AddXY("Tue", 0);
-                s.Points.AddXY("Wed", 0);
-                s.Points.AddXY("Thu", 0);
-                s.Points.AddXY("Fri", 0);
-                s.Points.AddXY("Sat", 0);
-                s.Points.AddXY("Sun", 0);
-            }
-            else
-            {
-                foreach (var entry in data)
-                    s.Points.AddXY(entry.Key.ToString("ddd"), entry.Value);
+                foreach (var entry in salesData.OrderBy(x => x.Key))
+                {
+                    series.Points.AddXY(entry.Key.ToString("MM/dd"), entry.Value);
+                    if (entry.Value > 0) hasData = true;
+                }
             }
 
-            chartDailySales.Series.Add(s);
+            if (!hasData)
+            {
+                series.Points.AddXY("No Data", 0);
 
-            // Force refresh
+                TextAnnotation noDataAnnotation = new TextAnnotation
+                {
+                    Text = "No sales data for the last 7 days",
+                    Font = new Font("Arial", 12, FontStyle.Italic),
+                    ForeColor = Color.Gray,
+                    X = 50,
+                    Y = 50,
+                    Alignment = ContentAlignment.MiddleCenter
+                };
+                chartDailySales.Annotations.Add(noDataAnnotation);
+            }
+
+            chartDailySales.Series.Add(series);
             chartDailySales.Invalidate();
-            chartDailySales.Update();
         }
 
         private void PopulateItemsChart()
         {
-            // Check if chart exists
-            if (chartCategorySales == null)
-            {
-                MessageBox.Show("Category Sales Chart control not found in the form!");
-                return;
-            }
+            if (chartCategorySales == null) return;
 
-            // Clear everything
             chartCategorySales.Series.Clear();
             chartCategorySales.Titles.Clear();
             chartCategorySales.ChartAreas.Clear();
+            chartCategorySales.Annotations.Clear();
 
-            // Add ChartArea (CRITICAL - charts need this to display)
             ChartArea chartArea = new ChartArea("MainArea");
             chartArea.AxisX.MajorGrid.Enabled = false;
             chartArea.AxisY.MajorGrid.LineColor = Color.LightGray;
+            chartArea.BackColor = Color.White;
             chartCategorySales.ChartAreas.Add(chartArea);
 
-            // Add title
-            chartCategorySales.Titles.Add("Top Selling Items");
+            Title title = new Title("Top Selling Items");
+            title.Font = new Font("Arial", 14, FontStyle.Bold);
+            chartCategorySales.Titles.Add(title);
 
-            // Create series
-            Series s = new Series("Items Sold")
+            Series series = new Series("Items Sold")
             {
                 ChartType = SeriesChartType.Bar,
+                Color = Color.FromArgb(75, 192, 192),
                 IsValueShownAsLabel = true,
                 ChartArea = "MainArea",
-                Color = Color.Green
+                BorderWidth = 2
             };
 
-            // Get data
-            var data = OrderService.GetSalesByItem()
-                                   .OrderByDescending(kvp => kvp.Value)
-                                   .Take(5)
-                                   .ToList();
+            var itemData = OrderService.GetSalesByItem()
+                                       .OrderByDescending(kvp => kvp.Value)
+                                       .Take(5)
+                                       .ToList();
+            bool hasData = false;
 
-            // Check if we have data
-            if (data == null || data.Count == 0)
+            if (itemData != null && itemData.Count > 0)
             {
-                // Add dummy point to show empty chart
-                s.Points.AddXY("No Data", 0);
-            }
-            else
-            {
-                foreach (var entry in data)
-                    s.Points.AddXY(entry.Key, entry.Value);
+                foreach (var entry in itemData)
+                {
+                    series.Points.AddXY(entry.Key, entry.Value);
+                    if (entry.Value > 0) hasData = true;
+                }
             }
 
-            chartCategorySales.Series.Add(s);
+            if (!hasData)
+            {
+                series.Points.AddXY("No Data", 0);
 
-            // Force refresh
+                TextAnnotation noDataAnnotation = new TextAnnotation
+                {
+                    Text = "No item sales data available",
+                    Font = new Font("Arial", 12, FontStyle.Italic),
+                    ForeColor = Color.Gray,
+                    X = 50,
+                    Y = 50,
+                    Alignment = ContentAlignment.MiddleCenter
+                };
+                chartCategorySales.Annotations.Add(noDataAnnotation);
+            }
+
+            chartCategorySales.Series.Add(series);
             chartCategorySales.Invalidate();
         }
         #endregion
 
-        #region Customer Feedback (mock data + grid)
+        #region Customer Feedback
         private void LoadCustomerFeedback()
         {
-            // Prepare in-memory mock data (simple set each time)
-            mockFeedbackList = new List<MockFeedback>
-            {
-                new MockFeedback { Email = "maria@gmail.com", Type = "Service Quality", Date = DateTime.Now.Date.AddDays(-0).ToShortDateString(), Time = "10:30 AM", Priority = "High", Status = "Pending" },
-                new MockFeedback { Email = "john@yahoo.com", Type = "Food Taste", Date = DateTime.Now.Date.AddDays(-1).ToShortDateString(), Time = "12:00 PM", Priority = "Medium", Status = "Reviewed" },
-                new MockFeedback { Email = "anne@gmail.com", Type = "Cleanliness", Date = DateTime.Now.Date.AddDays(-2).ToShortDateString(), Time = "09:45 AM", Priority = "Low", Status = "Resolved" }
-            };
+            DataTable feedbackTable = Database.GetFeedbackList();
 
-            // Clear existing
             dgvCustomerFeedback.Rows.Clear();
             dgvCustomerFeedback.Columns.Clear();
 
-            // Add columns
+            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colId", HeaderText = "ID" });
+            dgvCustomerFeedback.Columns["colId"].Visible = false; // hide ID column
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colEmail", HeaderText = "Email ID Number" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colType", HeaderText = "Feedback Type" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colDate", HeaderText = "Date" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colTime", HeaderText = "Time" });
-            dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colPriority", HeaderText = "Priority Level" });
             dgvCustomerFeedback.Columns.Add(new DataGridViewTextBoxColumn { Name = "colStatus", HeaderText = "Feedback Status" });
 
-            // Image columns for edit & delete
             var editCol = new DataGridViewImageColumn()
             {
                 Name = "colEdit",
@@ -344,7 +380,6 @@ namespace MyKioski
                 Width = 40
             };
 
-            // Attempt to load icons from Assets
             try
             {
                 string editPath = Path.Combine(Application.StartupPath, "Assets", "edit.png");
@@ -352,85 +387,97 @@ namespace MyKioski
 
                 if (File.Exists(editPath))
                     editCol.Image = Image.FromFile(editPath);
-                else
-                    Console.WriteLine($"Edit icon not found: {editPath}");
 
                 if (File.Exists(deletePath))
                     deleteCol.Image = Image.FromFile(deletePath);
-                else
-                    Console.WriteLine($"Delete icon not found: {deletePath}");
-                Console.WriteLine($"Delete icon not found: {deletePath}");
             }
-            catch
-            {
-                // ignore image load issues — columns will still be there
-            }
+            catch { }
 
             dgvCustomerFeedback.Columns.Add(editCol);
             dgvCustomerFeedback.Columns.Add(deleteCol);
 
-            // Add rows from mockFeedbackList
-            foreach (var f in mockFeedbackList)
+            foreach (DataRow row in feedbackTable.Rows)
             {
                 dgvCustomerFeedback.Rows.Add(
-                    f.Email,
-                    f.Type,
-                    f.Date,
-                    f.Time,
-                    f.Priority,
-                    f.Status,
+                    row["FeedbackID"],
+                    row["Email"],
+                    row["Type"],
+                    row["Date"],
+                    row["Time"],
+                    row["Status"],
                     null,
                     null
                 );
             }
 
-            // Appearance
             dgvCustomerFeedback.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCustomerFeedback.RowTemplate.Height = 40;
             dgvCustomerFeedback.ClearSelection();
 
-            // Wire the click event (remove previous to prevent multiple subscriptions)
             dgvCustomerFeedback.CellContentClick -= dgvCustomerFeedback_CellContentClick;
             dgvCustomerFeedback.CellContentClick += dgvCustomerFeedback_CellContentClick;
         }
+
 
         private void dgvCustomerFeedback_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
-            // Make sure column names exist
             var colName = dgvCustomerFeedback.Columns[e.ColumnIndex].Name;
 
             if (colName == "colEdit")
             {
                 var email = dgvCustomerFeedback.Rows[e.RowIndex].Cells["colEmail"].Value?.ToString();
                 MessageBox.Show($"Edit feedback from {email}", "Edit Feedback", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Placeholder - you can open an edit form here
             }
             else if (colName == "colDelete")
             {
+                var idValue = dgvCustomerFeedback.Rows[e.RowIndex].Cells["colId"].Value;
                 var email = dgvCustomerFeedback.Rows[e.RowIndex].Cells["colEmail"].Value?.ToString();
-                var result = MessageBox.Show($"Are you sure you want to delete feedback from {email}?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (idValue == null)
+                {
+                    MessageBox.Show("Cannot delete: Feedback ID not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int feedbackId = Convert.ToInt32(idValue);
+
+                var result = MessageBox.Show(
+                    $"Are you sure you want to delete feedback from {email}?",
+                    "Confirm Delete",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
                 if (result == DialogResult.Yes)
                 {
-                    dgvCustomerFeedback.Rows.RemoveAt(e.RowIndex);
-                    // If you'd persist to DB later, call deletion code here
+                    try
+                    {
+                        Database.DeleteFeedback(feedbackId);
+                        dgvCustomerFeedback.Rows.RemoveAt(e.RowIndex);
+
+                        MessageBox.Show("Feedback deleted successfully.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error deleting feedback: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+
+
         }
         #endregion
 
-        // 🔐 Secret shortcut: Ctrl + D returns to MenuForm (no ESC, no exit)
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == (Keys.Control | Keys.D))
             {
-                // Find if MenuForm is already open and hidden
                 MenuForm existingMenu = Application.OpenForms.OfType<MenuForm>().FirstOrDefault();
 
                 if (existingMenu != null)
                 {
-                    // If MenuForm exists, just show it
                     existingMenu.WindowState = FormWindowState.Maximized;
                     existingMenu.Show();
                     existingMenu.BringToFront();
@@ -438,7 +485,6 @@ namespace MyKioski
                 }
                 else
                 {
-                    // Create new MenuForm if it doesn't exist
                     MenuForm menu = new MenuForm();
                     menu.FormBorderStyle = FormBorderStyle.None;
                     menu.WindowState = FormWindowState.Maximized;
@@ -453,20 +499,9 @@ namespace MyKioski
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        // small mock DTO
-        private class MockFeedback
-        {
-            public string Email { get; set; }
-            public string Type { get; set; }
-            public string Date { get; set; }
-            public string Time { get; set; }
-            public string Priority { get; set; }
-            public string Status { get; set; }
-        }
-
         private void btnNavFoodOrders_Click(object sender, EventArgs e)
         {
-
         }
+
     }
 }
