@@ -23,7 +23,7 @@ namespace MyKioski
         {
             ResetButtonColors();
             complaintBtn.BackColor = Color.LightBlue;
-            concernType= "Complaint";
+            concernType = "Complaint";
         }
 
         // Others button click
@@ -31,7 +31,7 @@ namespace MyKioski
         {
             ResetButtonColors();
             othersBtn.BackColor = Color.LightBlue;
-            concernType= "Others";
+            concernType = "Others";
         }
 
         private void ResetButtonColors()
@@ -72,6 +72,15 @@ namespace MyKioski
             }
         }
 
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void feedbackBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
      

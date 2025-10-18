@@ -32,22 +32,17 @@
             textBox3 = new TextBox();
             label1 = new Label();
             label2 = new Label();
-            label3 = new Label();
             textBox2 = new TextBox();
             button4 = new Button();
             button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
             bindingSource1 = new BindingSource(components);
-            label4 = new Label();
             textBox1 = new TextBox();
             label5 = new Label();
             button8 = new Button();
             button9 = new Button();
             button10 = new Button();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            textBox4 = new TextBox();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
@@ -63,9 +58,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(503, 29);
+            label1.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(503, 22);
             label1.Name = "label1";
-            label1.Size = new Size(73, 15);
+            label1.Size = new Size(85, 17);
             label1.TabIndex = 3;
             label1.Text = "Ticker Name";
             label1.Click += label1_Click;
@@ -73,26 +69,18 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(26, 29);
+            label2.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.Location = new Point(26, 22);
             label2.Name = "label2";
-            label2.Size = new Size(38, 15);
+            label2.Size = new Size(44, 17);
             label2.TabIndex = 4;
             label2.Text = "From:";
             label2.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(503, 192);
-            label3.Name = "label3";
-            label3.Size = new Size(45, 15);
-            label3.TabIndex = 8;
-            label3.Text = "Priority";
-            label3.Click += label3_Click;
-            // 
             // textBox2
             // 
-            textBox2.Location = new Point(26, 108);
+            textBox2.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox2.Location = new Point(26, 101);
             textBox2.Multiline = true;
             textBox2.Name = "textBox2";
             textBox2.PlaceholderText = "Enter message here";
@@ -101,52 +89,27 @@
             // 
             // button4
             // 
-            button4.Location = new Point(664, 390);
+            button4.BackColor = SystemColors.ButtonHighlight;
+            button4.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            button4.Location = new Point(664, 398);
             button4.Name = "button4";
             button4.Size = new Size(141, 49);
             button4.TabIndex = 10;
             button4.Text = "Save as Draft";
-            button4.UseVisualStyleBackColor = true;
+            button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
             // 
             // button5
             // 
-            button5.Location = new Point(821, 390);
+            button5.BackColor = SystemColors.ButtonHighlight;
+            button5.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            button5.Location = new Point(821, 398);
             button5.Name = "button5";
             button5.Size = new Size(141, 49);
             button5.TabIndex = 11;
-            button5.Text = "Send";
-            button5.UseVisualStyleBackColor = true;
+            button5.Text = "Send Reply";
+            button5.UseVisualStyleBackColor = false;
             button5.Click += button5_Click;
-            // 
-            // button6
-            // 
-            button6.Location = new Point(503, 131);
-            button6.Name = "button6";
-            button6.Size = new Size(141, 49);
-            button6.TabIndex = 12;
-            button6.Text = "Dine In";
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
-            // 
-            // button7
-            // 
-            button7.Location = new Point(664, 131);
-            button7.Name = "button7";
-            button7.Size = new Size(141, 49);
-            button7.TabIndex = 13;
-            button7.Text = "Take Out";
-            button7.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(503, 108);
-            label4.Name = "label4";
-            label4.Size = new Size(159, 15);
-            label4.TabIndex = 15;
-            label4.Text = "Customer Service Experience";
-            label4.Click += label4_Click;
             // 
             // textBox1
             // 
@@ -160,15 +123,16 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(503, 281);
+            label5.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(503, 98);
             label5.Name = "label5";
-            label5.Size = new Size(93, 15);
+            label5.Size = new Size(108, 17);
             label5.TabIndex = 19;
             label5.Text = "Type of Concern";
             // 
             // button8
             // 
-            button8.Location = new Point(821, 308);
+            button8.Location = new Point(821, 124);
             button8.Name = "button8";
             button8.Size = new Size(141, 49);
             button8.TabIndex = 18;
@@ -177,7 +141,7 @@
             // 
             // button9
             // 
-            button9.Location = new Point(664, 308);
+            button9.Location = new Point(664, 124);
             button9.Name = "button9";
             button9.Size = new Size(141, 49);
             button9.TabIndex = 17;
@@ -187,7 +151,7 @@
             // 
             // button10
             // 
-            button10.Location = new Point(503, 308);
+            button10.Location = new Point(503, 124);
             button10.Name = "button10";
             button10.Size = new Size(141, 49);
             button10.TabIndex = 16;
@@ -195,32 +159,26 @@
             button10.UseVisualStyleBackColor = true;
             button10.Click += button10_Click;
             // 
-            // button1
+            // textBox4
             // 
-            button1.Location = new Point(821, 220);
-            button1.Name = "button1";
-            button1.Size = new Size(141, 49);
-            button1.TabIndex = 22;
-            button1.Text = "High";
-            button1.UseVisualStyleBackColor = true;
+            textBox4.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            textBox4.Location = new Point(503, 221);
+            textBox4.Multiline = true;
+            textBox4.Name = "textBox4";
+            textBox4.PlaceholderText = "Enter message here";
+            textBox4.Size = new Size(459, 167);
+            textBox4.TabIndex = 20;
             // 
-            // button2
+            // label3
             // 
-            button2.Location = new Point(664, 220);
-            button2.Name = "button2";
-            button2.Size = new Size(141, 49);
-            button2.TabIndex = 21;
-            button2.Text = "Medium";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(503, 220);
-            button3.Name = "button3";
-            button3.Size = new Size(141, 49);
-            button3.TabIndex = 20;
-            button3.Text = "Low";
-            button3.UseVisualStyleBackColor = true;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.Location = new Point(503, 190);
+            label3.Name = "label3";
+            label3.Size = new Size(140, 17);
+            label3.TabIndex = 21;
+            label3.Text = "Manager Note/Reply:";
+            label3.Click += label3_Click_1;
             // 
             // Form1
             // 
@@ -228,20 +186,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightGray;
             ClientSize = new Size(983, 463);
-            Controls.Add(button1);
-            Controls.Add(button2);
-            Controls.Add(button3);
+            Controls.Add(label3);
+            Controls.Add(textBox4);
             Controls.Add(label5);
             Controls.Add(button8);
             Controls.Add(button9);
             Controls.Add(button10);
-            Controls.Add(label4);
-            Controls.Add(button7);
-            Controls.Add(button6);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(textBox2);
-            Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(textBox3);
@@ -257,21 +210,16 @@
         private TextBox textBox3;
         private Label label1;
         private Label label2;
-        private Label label3;
         private TextBox textBox2;
         private Button button4;
         private Button button5;
-        private Button button6;
-        private Button button7;
         private BindingSource bindingSource1;
-        private Label label4;
         private TextBox textBox1;
         private Label label5;
         private Button button8;
         private Button button9;
         private Button button10;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private TextBox textBox4;
+        private Label label3;
     }
 }
