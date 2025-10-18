@@ -232,9 +232,18 @@ namespace MyKioski
         private void btnMyCart_Click(object sender, EventArgs e)
         {
             CartForm cartForm = new CartForm();
-            cartForm.ShowDialog(); // Or Show() if you want non-modal
-            UpdateOrderSummary(); // Refresh the summary when cart form closes
+
+            // manually center relative to Menu (this form)
+            cartForm.StartPosition = FormStartPosition.Manual;
+            cartForm.Location = new Point(
+                this.Left + (this.Width - cartForm.Width) / 2,
+                this.Top + (this.Height - cartForm.Height) / 2
+            );
+
+            cartForm.Show(this);
         }
+
+
 
         private void UpdateCartButton()
         {
